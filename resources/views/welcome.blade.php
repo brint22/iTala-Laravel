@@ -24,9 +24,9 @@
             <h1 class=" font-bold text-gray-900 dark:text-white" style="font-size: 5rem;">Welcome to iTala</h1>
         </div>
 
-        <p class="mt-6 text-lg text-gray-600 dark:text-gray-400" style="font-aiw: 2.5rem;">
+        <p class="mt-6 text-lg text-gray-600 dark:text-gray-400" style="font-size: 1.5rem;">
             <!--Your mental health guided by professionals made accessible in Dipolog.*/ -->
-            Guiding every step to better mental health in Dipolog.
+            Guiding every step to <b>better mental health</b> in <b>Dipolog</b>.
     </div>
 </body>
 
