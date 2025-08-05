@@ -40,7 +40,7 @@
                     style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px;">
                     <h4 class="text-lg font-semibold text-white mb-2">View Clients</h4>
                     <p class="text-sm text-white/70 mb-4" style="color: lightgray;">
-                        Browse the list of all registered clients.
+                        Browse the list of all clients.
                     </p>
                     <a href="http://localhost:8000/clients"
                         class="block w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition"

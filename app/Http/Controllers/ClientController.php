@@ -44,9 +44,10 @@ class ClientController extends Controller
     // Optional: show all clients (for future use)
     public function index()
     {
-        $clients = Client::all();
-        return view('clients.index', compact('clients'));
+        $clients = Client::paginate(10); // or whatever number per page you want
+        return view('clients.ViewClients', compact('clients'));
     }
+
 
     // Optional: show, edit, update, destroy can be added later
 }
