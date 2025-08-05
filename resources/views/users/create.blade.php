@@ -41,7 +41,8 @@
                         <select name="gender" class="mt-1 block w-full rounded" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
-                            <option value="Other">Other</option>
+                            <option value="Other">Non-binary</option>
+                            <option value="Other">Prefer not to say</option>
                         </select>
                     </div>
 
