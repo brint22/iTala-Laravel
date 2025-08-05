@@ -39,10 +39,10 @@
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Gender</label>
                         <select name="gender" class="mt-1 block w-full rounded" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Non-binary</option>
-                            <option value="Other">Prefer not to say</option>
+                          <option value="Male">Male</option>
+<option value="Female">Female</option>
+<option value="Non-binary">Non-binary</option>
+<option value="Prefer not to say">Prefer not to say</option>
                         </select>
                     </div>
 
