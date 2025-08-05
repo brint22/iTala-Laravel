@@ -16,6 +16,10 @@
                         <x-nav-link :href="route('users.create')" :active="request()->routeIs('users.create')" activeClass="text-[#FCB040]">
                             {{ __('Create Account') }}
                         </x-nav-link>
+
+                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')" activeClass="text-[#FCB040]">
+                            {{ __('View Accounts') }}
+                        </x-nav-link>
                     @endif
                 </div>
             </div>
@@ -70,6 +74,10 @@
             @if(in_array(Auth::user()->role, ['super_admin', 'admin']))
                 <x-responsive-nav-link :href="route('users.create')" :active="request()->routeIs('users.create')" activeClass="text-[#FCB040]">
                     {{ __('Create Account') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')" activeClass="text-[#FCB040]">
+                    {{ __('View Accounts') }}
                 </x-responsive-nav-link>
             @endif
         </div>

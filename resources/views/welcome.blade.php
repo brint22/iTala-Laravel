@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -6,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>iTala</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
 </head>
 
 <body class="antialiased bg-white dark:bg-gray-900">

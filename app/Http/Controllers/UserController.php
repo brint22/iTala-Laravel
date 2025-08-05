@@ -14,6 +14,12 @@ class UserController extends Controller
         return view('users.create');
     }
 
+    public function viewAccounts()
+{
+    $users = User::all();
+    return view('users.ViewAccounts', compact('users'));
+}
+
     public function store(Request $request)
     {
         $validated = $request->validate([
