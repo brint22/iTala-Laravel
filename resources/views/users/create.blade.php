@@ -39,10 +39,10 @@
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Gender</label>
                         <select name="gender" class="mt-1 block w-full rounded" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
-                          <option value="Male">Male</option>
-<option value="Female">Female</option>
-<option value="Non-binary">Non-binary</option>
-<option value="Prefer not to say">Prefer not to say</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Non-binary">Non-binary</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
                         </select>
                     </div>
 
@@ -66,15 +66,21 @@
                         <input type="password" name="password" class="mt-1 block w-full rounded" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
                     </div>
 
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Role</label>
-                        <select name="role" class="mt-1 block w-full rounded border-gray-300" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
-                            <option value="admin">Admin</option>
-                            <option value="Registered Psychometrician">Registered Psychometrician</option>
-                        </select>
-                    </div>
+                    {{-- Role selection only visible for super_admin --}}
+                    @if(Auth::user()->role === 'super_admin')
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Role</label>
+                            <select name="role" class="mt-1 block w-full rounded border-gray-300" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
+                                <option value="admin">Admin</option>
+                                <option value="Registered Psychometrician">Registered Psychometrician</option>
+                            </select>
+                        </div>
+                    @else
+                        {{-- Default to Registered Psychometrician for non-super_admins --}}
+                        <input type="hidden" name="role" value="Registered Psychometrician">
+                    @endif
 
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded" style="border: 2px solid #5b626e;border-radius: 4pt;">
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded" style="border: 2px solid #5b626e; border-radius: 4pt;">
                         Create User
                     </button>
                 </form>
