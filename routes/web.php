@@ -24,4 +24,7 @@ Route::get('/view-accounts', [UserController::class, 'viewAccounts'])->name('use
 
 require __DIR__.'/auth.php';
 
+Route::get('/homepage', function () {
+    return view('users.homepage');
+})->middleware(['auth'])->name('homepage');
 
