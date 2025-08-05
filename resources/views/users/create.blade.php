@@ -7,23 +7,42 @@
 
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            {{-- ✅ SweetAlert2 CDN --}}
 
-            {{-- Success flash message --}}
-            @if(session('success'))
-                <div class="mb-4 text-green-500 font-semibold">
-                    {{ session('success') }}
-                </div>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+            {{-- ✅ SweetAlert2 Success Popup --}}
+            @if (session('success'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: "{{ session('success') }}",
+                        showConfirmButton: false,
+                        timer: 2500,
+                        timerProgressBar: true,
+                        background: '#1f2937', // Tailwind's gray-800
+                        color: '#f9fafb', // Tailwind's gray-50
+                        customClass: {
+                            popup: 'rounded-xl shadow-lg'
+                        }
+                    });
+                });
+            </script>
             @endif
+
+
 
             {{-- Validation errors --}}
             @if ($errors->any())
-                <div class="mb-4 text-red-500 font-medium">
-                    <ul class="list-disc pl-5">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div class="mb-4 text-red-500 font-medium">
+                <ul class="list-disc pl-5">
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
             @endif
 
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
@@ -75,7 +94,13 @@
                     {{-- Contact Number --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Contact Number</label>
-                        <input type="text" name="contact_number" value="{{ old('contact_number') }}" class="mt-1 block w-full rounded" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
+                        <div class="flex">
+                            <span class="inline-flex items-center px-3 text-white text-sm rounded-l border border-r-0" style="background-color: #111827; border-color: #283141;">+63</span>
+                            <input type="text" name="contact_number" value="{{ old('contact_number') }}" maxlength="10" pattern="[0-9]{10}"
+                                class="mt-1 block w-full rounded-r"
+                                style="background-color: #111827; color: white; border: 1px solid #283141;" placeholder="9123456789" required>
+                        </div>
+                        <small class="text-gray-400">Enter 10-digit mobile number after +63</small>
                     </div>
 
                     {{-- License Number --}}
@@ -98,15 +123,15 @@
 
                     {{-- Role --}}
                     @if(Auth::user()->role === 'super_admin')
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Role</label>
-                            <select name="role" class="mt-1 block w-full rounded border-gray-300" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
-                                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                                <option value="Registered Psychometrician" {{ old('role') == 'Registered Psychometrician' ? 'selected' : '' }}>Registered Psychometrician</option>
-                            </select>
-                        </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Role</label>
+                        <select name="role" class="mt-1 block w-full rounded border-gray-300" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
+                            <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                            <option value="Registered Psychometrician" {{ old('role') == 'Registered Psychometrician' ? 'selected' : '' }}>Registered Psychometrician</option>
+                        </select>
+                    </div>
                     @else
-                        <input type="hidden" name="role" value="Registered Psychometrician">
+                    <input type="hidden" name="role" value="Registered Psychometrician">
                     @endif
 
                     {{-- Submit --}}
