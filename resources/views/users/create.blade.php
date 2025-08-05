@@ -57,11 +57,6 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Username</label>
-                        <input type="text" name="name" class="mt-1 block w-full rounded" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
-                    </div>
-
-                    <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
                         <input type="email" name="email" class="mt-1 block w-full rounded" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
                     </div>
