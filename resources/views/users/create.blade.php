@@ -70,7 +70,7 @@
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Role</label>
                         <select name="role" class="mt-1 block w-full rounded border-gray-300" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
                             <option value="admin">Admin</option>
-                            <option value="user">Registered Psychometrician</option>
+                            <option value="Registered Psychometrician">Registered Psychometrician</option>
                         </select>
                     </div>
 
