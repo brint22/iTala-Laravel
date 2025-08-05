@@ -27,6 +27,8 @@ Route::middleware('auth')->group(function () {
     // Client form route
     Route::get('/clients/addclient', [ClientController::class, 'addClient'])->name('clients.addclient');
     Route::post('/clients/store', [ClientController::class, 'store'])->name('clients.store');
+    Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
+
 
   
 
