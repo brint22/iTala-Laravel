@@ -26,7 +26,7 @@ class ClientController extends Controller
             'last_name'               => 'required|string|max:255',
             'name_extension'          => 'nullable|string|max:10',
             'birthdate'               => 'required|date',
-            'gender'                  => 'required|string|max:10',
+            'gender'                  => 'required|string|max:30',
             'civil_status'            => 'required|string|max:20',
             'contact_number'          => 'required|string|max:20',
             'email'                   => 'required|email|unique:clients,email',
