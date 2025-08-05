@@ -15,7 +15,7 @@ class UserController extends Controller
     }
 
     // Handle form submission to store a new user
-   public function store(Request $request)
+  public function store(Request $request)
 {
     $request->validate([
         'first_name' => 'required|string|max:255',
@@ -31,8 +31,8 @@ class UserController extends Controller
         'role' => 'required|string|in:admin,Registered Psychometrician',
     ]);
 
-    // Combine first, middle, last name as 'name' if needed
-    $fullName = $request->first_name . ' ' . $request->middle_name . ' ' . $request->last_name;
+    // Combine full name
+    $fullName = trim($request->first_name . ' ' . ($request->middle_name ? $request->middle_name . ' ' : '') . $request->last_name);
 
     User::create([
         'first_name' => $request->first_name,
@@ -46,6 +46,7 @@ class UserController extends Controller
         'email' => $request->email,
         'password' => Hash::make($request->password),
         'role' => $request->role,
+        'name' => $fullName, // ← added this line
     ]);
 
     return redirect()->route('dashboard')->with('success', 'User created successfully.');
