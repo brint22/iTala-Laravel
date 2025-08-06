@@ -55,11 +55,27 @@
                             <div class="ml-4 shrink-0 flex flex-col items-center space-y-2"
                                 style="flex-direction: row; align-items: center; justify-content: center; gap: 1em; padding: 0; margin: 0;">
 
+                                @php
+                                $hasAppointments = $client->appointments()->exists();
+                                $hasSessionNotes = $client->sessionNotes()->exists();
+                                @endphp
+
+                                @if ($hasSessionNotes)
+                                <a href="{{ route('clients.viewsessionnotes', ['client' => $client->id]) }}"
+                                    class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white text-sm rounded shadow w-max"
+                                    style="padding: 1em; background-color: #c09fff42;">
+                                    View Session Notes
+                                </a>
+                                @elseif ($hasAppointments)
+                                <span class="text-xs text-gray-400 italic" style="margin: 0 !important;">[No Session Note]</span>
+                                @endif
+
+
                                 {{-- ✅ Add Session Note Button (only if appointments exist) --}}
                                 @if ($client->appointments->count() > 0)
                                 <a href="{{ route('clients.addsessionnote', ['client' => $client->id]) }}"
                                     class="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white text-sm rounded shadow w-max"
-                                    style="padding: 1em; background-color: #d6e0ff42;">
+                                    style="padding: 1em; background-color: #d6e0ff42; margin: 0;">
                                     Add Session Note
                                 </a>
                                 @endif
@@ -69,10 +85,10 @@
                                 <button @click.stop="showAppointments = true"
                                     class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-sm rounded shadow w-max"
                                     style="padding: 1em; background-color: #6a85ab4d; margin: 0;">
-                                    View Appointment
+                                    View Appointments
                                 </button>
                                 @else
-                                <span class="text-xs text-gray-400 italic">[No Appointment]</span>
+                                <span class="text-xs text-gray-400 italic" style="margin: 0 !important;">[No Appointment]</span>
                                 @endif
 
                                 {{-- Add Appointment Button --}}

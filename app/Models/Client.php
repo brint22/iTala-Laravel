@@ -34,7 +34,6 @@ class Client extends Model
     return $this->hasMany(SessionNote::class);
 }
 
-
         protected function fullName(): Attribute
     {
         return Attribute::get(function () {

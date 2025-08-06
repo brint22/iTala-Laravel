@@ -64,6 +64,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/clients/store-session-note', [ClientController::class, 'storeSessionNote'])->name('clients.storesessionnote');
     Route::post('/clients/{client}/session-notes', [SessionNoteController::class, 'store'])->name('clients.sessionnotes.store');
 
+    Route::get('/clients/{client}/session-notes', [SessionNoteController::class, 'viewSessionNotes'])
+        ->name('clients.viewsessionnotes');
+
     // Homepage for RPMs
     Route::get('/homepage', function () {
         return view('users.homepage');
