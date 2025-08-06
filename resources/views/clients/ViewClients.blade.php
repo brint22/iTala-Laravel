@@ -32,6 +32,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 @forelse ($clients as $client)
                 <div x-data="{ open: false }">
+                    <!-- Client Card -->
                     <div
                         class="bg-gray-800 shadow rounded-lg p-4 cursor-pointer hover:bg-gray-700 transition"
                         @click="open = true">
@@ -49,70 +50,69 @@
                     </div>
 
                     <!-- Modal -->
-                    <div x-show="open"
+                    <div
+                        x-show="open"
+                        x-cloak
                         class="fixed inset-0 flex items-center justify-center z-50"
                         style="
-        background-color: #00000033;
-        backdrop-filter: blur(50px);
-        position: fixed;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 50;
-    ">
+                            background-color: #00000033;
+                            backdrop-filter: blur(50px);
+                        "
+                        @keydown.escape.window="open = false"
+                    >
                         <!-- Modal Card -->
                         <div
                             class="animate-fadeInScale"
-                            @keydown.escape.window.stop=""
                             style="
-            width: 500px;
-            padding: 2em;
-            background-color: #ffffff2b;
-            color: white;
-            border-radius: 0.5rem;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        ">
+                                width: 500px;
+                                padding: 2em;
+                                background-color: #ffffff2b;
+                                color: white;
+                                border-radius: 0.5rem;
+                                max-height: 90vh;
+                                overflow-y: auto;
+                                position: relative;
+                            "
+                        >
                             <!-- Close Button -->
                             <button
                                 @click="open = false"
                                 class="z-50"
                                 style="
-                position: absolute;
-                top: 1rem;
-                right: 1.5rem;
-                color: white;
-                font-size: 2.5rem;
-                display: flex;
-                justify-content: flex-end;
-                cursor: pointer;
-            ">
+                                    position: absolute;
+                                    top: 1rem;
+                                    right: 1.5rem;
+                                    color: white;
+                                    font-size: 2.5rem;
+                                    display: flex;
+                                    justify-content: flex-end;
+                                    cursor: pointer;
+                                "
+                            >
                                 ×
                             </button>
 
                             <!-- Modal Content -->
                             <h2
                                 style="
-                text-align: left;
-                font-size: 1.5rem;
-                font-weight: bold;
-                margin-bottom: 1.5rem;
-            ">
+                                    text-align: left;
+                                    font-size: 1.5rem;
+                                    font-weight: bold;
+                                    margin-bottom: 1.5rem;
+                                "
+                            >
                                 Client Details
                             </h2>
 
-                            <div
-                                style="
-                font-size: 0.875rem;
-                color: white;
-            ">
-                                <p><strong>Full Name:</strong> Ondo, Redjyll Inion</p>
-                                <p><strong>Email:</strong> brint@gmail.com</p>
-                                <p><strong>Gender:</strong> prefer not to say</p>
-                                <p><strong>Birthdate:</strong> August 22, 2003</p>
-                                <p><strong>Date Added:</strong> August 05, 2025</p>
+                            <div style="font-size: 0.875rem; color: white;">
+                                <p><strong>Full Name:</strong> {{ $client->last_name }}, {{ $client->first_name }} {{ $client->middle_name }} {{ $client->name_extension }}</p>
+                                <p><strong>Email:</strong> {{ $client->email }}</p>
+                                <p><strong>Gender:</strong> {{ $client->gender }}</p>
+                                <p><strong>Birthdate:</strong> {{ \Carbon\Carbon::parse($client->birthdate)->format('F d, Y') }}</p>
+                                <p><strong>Date Added:</strong> {{ \Carbon\Carbon::parse($client->created_at)->format('F d, Y') }}</p>
+                                @if ($client->created_at != $client->updated_at)
+                                <p><strong>Date Updated:</strong> {{ \Carbon\Carbon::parse($client->updated_at)->format('F d, Y') }}</p>
+                                @endif
                             </div>
                         </div>
                     </div>
