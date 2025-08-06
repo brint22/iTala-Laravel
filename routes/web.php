@@ -60,6 +60,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/clients/{client}/addappointment', [ClientController::class, 'addappointment'])->name('clients.addappointment');
     Route::post('/clients/storeappointment', [ClientController::class, 'storeAppointment'])->name('client.storeappointment');
 
+    // ✅ ADD THIS: View Appointments Route (fixes the error)
+    Route::get('/appointments/view/{client}', [AppointmentController::class, 'view'])->name('appointments.view');
+
     // Homepage (for RPMs)
     Route::get('/homepage', function () {
         return view('users.homepage');

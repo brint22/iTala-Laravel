@@ -50,70 +50,93 @@
                                 @endif
                             </div>
 
-                            <!-- Right: Add Appointment Button -->
-                            <div class="ml-4 shrink-0 flex items-center bg-yellow-100 border border-yellow-300 rounded px-2 py-1" style="background-color: #ffffe02b; border: none;">
-                            <a href="{{ route('clients.addappointment', ['client' => $client->id]) }}"
-                            class="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded shadow">
-                            Add Appointment
-                        </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Modal -->
-                    <div
-                        x-show="open"
-                        x-cloak
-                        class="fixed inset-0 flex items-center justify-center z-50"
-                        style="background-color: #00000033; backdrop-filter: blur(50px);"
-                        @keydown.escape.window="open = false">
-                        <!-- Modal Card -->
-                        <div
-                            class="animate-fadeInScale"
-                            style="width: 500px; padding: 2em; background-color: #ffffff2b; color: white; border-radius: 0.5rem; max-height: 90vh; overflow-y: auto; position: relative;">
-                            <!-- Close Button -->
-                            <button
-                                @click="open = false"
-                                class="z-50"
-                                style="position: absolute; top: 1rem; right: 1.5rem; color: white; font-size: 2.5rem; display: flex; justify-content: flex-end; cursor: pointer;">
-                                ×
-                            </button>
-
-                            <!-- Modal Content -->
-                            <h2
-                                style="text-align: left; font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">
-                                Client Details
-                            </h2>
-
-                            <div style="font-size: 1.1rem; color: white; gap: 0.2em; display: flex; flex-direction: column;">
-                                <p><strong>Full Name:</strong> {{ $client->last_name }}, {{ $client->first_name }} {{ $client->middle_name }} {{ $client->name_extension }}</p>
-                                <p><strong>Birthdate:</strong> {{ \Carbon\Carbon::parse($client->birthdate)->format('F d, Y') }}</p>
-                                <p><strong>Age:</strong> {{ \Carbon\Carbon::parse($client->birthdate)->age }} years old</p>
-                                <p><strong>Gender:</strong> {{ ucfirst($client->gender) }}</p>
-                                <p><strong>Civil Status:</strong> {{ ucfirst($client->civil_status) }}</p>
-                                <p><span class="font-semibold">Contact Number:</span> +63{{ ltrim($client->contact_number, '0') }}</p>
-                                <p><strong>Email:</strong> {{ $client->email }}</p>
-                                <p><strong>Address:</strong> {{ $client->address }}</p>
-                                <p><strong>Emergency Contact Name:</strong> {{ $client->emergency_contact_name }}</p>
-                                <p><span class="font-semibold">Emergency Contact Number:</span> +63{{ ltrim($client->emergency_contact_number, '0') }}</p>
-                                <p><strong>Date Added:</strong> {{ \Carbon\Carbon::parse($client->created_at)->format('F d, Y') }}</p>
-                                @if ($client->created_at != $client->updated_at)
-                                <p><strong>Date Updated:</strong> {{ \Carbon\Carbon::parse($client->updated_at)->format('F d, Y') }}</p>
+                            <!-- Right: Appointment Controls -->
+                            <di<div class="ml-4 shrink-0 flex flex-col items-center space-y-2" style="
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+">
+                                {{-- Conditional View/No Appointment --}}
+                                @if ($client->appointments->count() > 0)
+                                <a href="{{ route('appointments.view', ['client' => $client->id]) }}"
+                                    class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-sm rounded shadow w-max">
+                                    View Appointment
+                                </a>
+                                @else
+                                <span class="text-xs text-gray-400 italic">[No Appointment]</span>
                                 @endif
-                            </div>
+
+                                {{-- Add Appointment Button --}}
+                                <a href="{{ route('clients.addappointment', ['client' => $client->id]) }}"
+                                    class="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded shadow w-max" style="
+        padding: 0;
+        margin: 0;
+    ">
+                                    Add Appointment
+                                </a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div
+                    x-show="open"
+                    x-cloak
+                    class="fixed inset-0 flex items-center justify-center z-50"
+                    style="background-color: #00000033; backdrop-filter: blur(50px);"
+                    @keydown.escape.window="open = false">
+                    <!-- Modal Card -->
+                    <div
+                        class="animate-fadeInScale"
+                        style="width: 500px; padding: 2em; background-color: #ffffff2b; color: white; border-radius: 0.5rem; max-height: 90vh; overflow-y: auto; position: relative;">
+                        <!-- Close Button -->
+                        <button
+                            @click="open = false"
+                            class="z-50"
+                            style="position: absolute; top: 1rem; right: 1.5rem; color: white; font-size: 2.5rem; display: flex; justify-content: flex-end; cursor: pointer;">
+                            ×
+                        </button>
+
+                        <!-- Modal Content -->
+                        <h2
+                            style="text-align: left; font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">
+                            Client Details
+                        </h2>
+
+                        <div style="font-size: 1.1rem; color: white; gap: 0.2em; display: flex; flex-direction: column;">
+                            <p><strong>Full Name:</strong> {{ $client->last_name }}, {{ $client->first_name }} {{ $client->middle_name }} {{ $client->name_extension }}</p>
+                            <p><strong>Birthdate:</strong> {{ \Carbon\Carbon::parse($client->birthdate)->format('F d, Y') }}</p>
+                            <p><strong>Age:</strong> {{ \Carbon\Carbon::parse($client->birthdate)->age }} years old</p>
+                            <p><strong>Gender:</strong> {{ ucfirst($client->gender) }}</p>
+                            <p><strong>Civil Status:</strong> {{ ucfirst($client->civil_status) }}</p>
+                            <p><span class="font-semibold">Contact Number:</span> +63{{ ltrim($client->contact_number, '0') }}</p>
+                            <p><strong>Email:</strong> {{ $client->email }}</p>
+                            <p><strong>Address:</strong> {{ $client->address }}</p>
+                            <p><strong>Emergency Contact Name:</strong> {{ $client->emergency_contact_name }}</p>
+                            <p><span class="font-semibold">Emergency Contact Number:</span> +63{{ ltrim($client->emergency_contact_number, '0') }}</p>
+                            <p><strong>Date Added:</strong> {{ \Carbon\Carbon::parse($client->created_at)->format('F d, Y') }}</p>
+                            @if ($client->created_at != $client->updated_at)
+                            <p><strong>Date Updated:</strong> {{ \Carbon\Carbon::parse($client->updated_at)->format('F d, Y') }}</p>
+                            @endif
                         </div>
                     </div>
                 </div>
-                @empty
-                <div class="text-center text-gray-400 col-span-full">
-                    No clients found.
-                </div>
-                @endforelse
             </div>
-
-            <div class="mt-6">
-                {{ $clients->links() }}
+            @empty
+            <div class="text-center text-gray-400 col-span-full">
+                No clients found.
             </div>
+            @endforelse
         </div>
+
+        <div class="mt-6">
+            {{ $clients->links() }}
+        </div>
+    </div>
     </div>
 </x-app-layout>
