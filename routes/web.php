@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController; // ✅ Required for clients.addclient route
+use App\Http\Controllers\AppointmentController; // ✅ Required for appointments.create route
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,7 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/clients/addclient', [ClientController::class, 'addClient'])->name('clients.addclient');
     Route::post('/clients/store', [ClientController::class, 'store'])->name('clients.store');
     Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
-   
+   Route::get('/appointments/create/{client}', [AppointmentController::class, 'create'])->name('appointments.create');
+
 
     // Homepage
     Route::get('/homepage', function () {

@@ -33,20 +33,32 @@
                 @forelse ($clients as $client)
                 <div x-data="{ open: false }">
                     <!-- Client Card -->
-                    <div
-                        class="bg-gray-800 shadow rounded-lg p-4 cursor-pointer hover:bg-gray-700 transition"
-                        @click="open = true">
-                        <h3 class="text-white text-lg font-semibold">
-                            {{ $client->last_name }}, {{ $client->first_name }} {{ $client->middle_name }} {{ $client->name_extension }}
-                        </h3>
-                        <p class="text-sm text-gray-400 mt-2">
-                            Date Added: {{ \Carbon\Carbon::parse($client->created_at)->format('F d, Y') }}
-                        </p>
-                        @if ($client->created_at != $client->updated_at)
-                        <p class="text-sm text-gray-400">
-                            Date Updated: {{ \Carbon\Carbon::parse($client->updated_at)->format('F d, Y') }}
-                        </p>
-                        @endif
+                    <div class="bg-gray-800 shadow rounded-lg p-4 hover:bg-gray-700 transition">
+                        <div class="flex items-start justify-between">
+                            <!-- Left: Clickable Area for Modal -->
+                            <div @click="open = true" class="cursor-pointer flex-1">
+                                <h3 class="text-white text-lg font-semibold">
+                                    {{ $client->last_name }}, {{ $client->first_name }} {{ $client->middle_name }} {{ $client->name_extension }}
+                                </h3>
+                                <p class="text-sm text-gray-400 mt-2">
+                                    Date Added: {{ \Carbon\Carbon::parse($client->created_at)->format('F d, Y') }}
+                                </p>
+                                @if ($client->created_at != $client->updated_at)
+                                <p class="text-sm text-gray-400">
+                                    Date Updated: {{ \Carbon\Carbon::parse($client->updated_at)->format('F d, Y') }}
+                                </p>
+                                @endif
+                            </div>
+
+                            <!-- Right: Add Appointment Button -->
+                            <div class="ml-4 shrink-0" style="display: flex; background-color: #ffffe040; border-radius: 5px; align-items: center;">
+                                <a href="{{ route('appointments.create', ['client' => $client->id]) }}"
+                                    class="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded shadow"
+                                    style="justify-content: center; display: flex; align-content: center; align-items: center; text-align: center;">
+                                    Add Appointment
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Modal -->
@@ -54,53 +66,27 @@
                         x-show="open"
                         x-cloak
                         class="fixed inset-0 flex items-center justify-center z-50"
-                        style="
-                            background-color: #00000033;
-                            backdrop-filter: blur(50px);
-                        "
+                        style="background-color: #00000033; backdrop-filter: blur(50px);"
                         @keydown.escape.window="open = false">
                         <!-- Modal Card -->
                         <div
                             class="animate-fadeInScale"
-                            style="
-                                width: 500px;
-                                padding: 2em;
-                                background-color: #ffffff2b;
-                                color: white;
-                                border-radius: 0.5rem;
-                                max-height: 90vh;
-                                overflow-y: auto;
-                                position: relative;
-                            ">
+                            style="width: 500px; padding: 2em; background-color: #ffffff2b; color: white; border-radius: 0.5rem; max-height: 90vh; overflow-y: auto; position: relative;">
                             <!-- Close Button -->
                             <button
                                 @click="open = false"
                                 class="z-50"
-                                style="
-                                    position: absolute;
-                                    top: 1rem;
-                                    right: 1.5rem;
-                                    color: white;
-                                    font-size: 2.5rem;
-                                    display: flex;
-                                    justify-content: flex-end;
-                                    cursor: pointer;
-                                ">
+                                style="position: absolute; top: 1rem; right: 1.5rem; color: white; font-size: 2.5rem; display: flex; justify-content: flex-end; cursor: pointer;">
                                 ×
                             </button>
 
                             <!-- Modal Content -->
                             <h2
-                                style="
-                                    text-align: left;
-                                    font-size: 1.5rem;
-                                    font-weight: bold;
-                                    margin-bottom: 1.5rem;
-                                ">
+                                style="text-align: left; font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">
                                 Client Details
                             </h2>
 
-                            <div style="font-size: 1.1rem;color: white;gap: 0.2em;display: flex;flex-direction: column;">
+                            <div style="font-size: 1.1rem; color: white; gap: 0.2em; display: flex; flex-direction: column;">
                                 <p><strong>Full Name:</strong> {{ $client->last_name }}, {{ $client->first_name }} {{ $client->middle_name }} {{ $client->name_extension }}</p>
                                 <p><strong>Birthdate:</strong> {{ \Carbon\Carbon::parse($client->birthdate)->format('F d, Y') }}</p>
                                 <p><strong>Age:</strong> {{ \Carbon\Carbon::parse($client->birthdate)->age }} years old</p>
