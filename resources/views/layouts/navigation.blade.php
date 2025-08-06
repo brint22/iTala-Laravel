@@ -8,18 +8,20 @@
                     </a>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" activeClass="text-[#FCB040]">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                    @unless(Auth::user()->role === 'Registered Psychometrician')
+                    <a class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:border-gray-300 dark:hover:border-gray-700 focus:outline-none focus:text-gray-700 dark:focus:text-gray-300 focus:border-gray-300 dark:focus:border-gray-700 transition duration-150 ease-in-out" href="{{ route('dashboard') }}" activeclass="text-[#FCB040]">
+                        Dashboard
+                    </a>
+                    @endunless
 
                     @if(in_array(Auth::user()->role, ['super_admin', 'admin']))
-                        <x-nav-link :href="route('users.create')" :active="request()->routeIs('users.create')" activeClass="text-[#FCB040]">
-                            {{ __('Create Account') }}
-                        </x-nav-link>
+                    <x-nav-link :href="route('users.create')" :active="request()->routeIs('users.create')" activeClass="text-[#FCB040]">
+                        {{ __('Create Account') }}
+                    </x-nav-link>
 
-                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')" activeClass="text-[#FCB040]">
-                            {{ __('View Accounts') }}
-                        </x-nav-link>
+                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')" activeClass="text-[#FCB040]">
+                        {{ __('View Accounts') }}
+                    </x-nav-link>
                     @endif
                 </div>
             </div>
@@ -67,18 +69,20 @@
 
     <div :class="{ 'block': open, 'hidden': ! open }" class="sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
+            @if(Auth::user()->role !== 'rpm')
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" activeClass="text-[#FCB040]">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @endif
 
             @if(in_array(Auth::user()->role, ['super_admin', 'admin']))
-                <x-responsive-nav-link :href="route('users.create')" :active="request()->routeIs('users.create')" activeClass="text-[#FCB040]">
-                    {{ __('Create Account') }}
-                </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('users.create')" :active="request()->routeIs('users.create')" activeClass="text-[#FCB040]">
+                {{ __('Create Account') }}
+            </x-responsive-nav-link>
 
-                <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')" activeClass="text-[#FCB040]">
-                    {{ __('View Accounts') }}
-                </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')" activeClass="text-[#FCB040]">
+                {{ __('View Accounts') }}
+            </x-responsive-nav-link>
             @endif
         </div>
 

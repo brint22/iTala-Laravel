@@ -51,7 +51,7 @@
                             </div>
 
                             <!-- Right: Add Appointment Button -->
-                            <div class="ml-4 shrink-0 flex items-center bg-yellow-100 border border-yellow-300 rounded px-2 py-1">
+                            <div class="ml-4 shrink-0 flex items-center bg-yellow-100 border border-yellow-300 rounded px-2 py-1" style="background-color: #ffffe02b; border: none;">
                             <a href="{{ route('clients.addappointment', ['client' => $client->id]) }}"
                             class="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded shadow">
                             Add Appointment

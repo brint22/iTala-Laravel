@@ -18,38 +18,38 @@
 
             {{-- Success Alert --}}
             @if (session('success'))
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success!',
-                            text: "{{ session('success') }}",
-                            showConfirmButton: false,
-                            timer: 2500,
-                            timerProgressBar: true,
-                            background: '#1f2937',
-                            color: '#f9fafb',
-                            customClass: {
-                                popup: 'rounded-xl shadow-lg'
-                            }
-                        });
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: "{{ session('success') }}",
+                        showConfirmButton: false,
+                        timer: 2500,
+                        timerProgressBar: true,
+                        background: '#1f2937',
+                        color: '#f9fafb',
+                        customClass: {
+                            popup: 'rounded-xl shadow-lg'
+                        }
                     });
-                </script>
+                });
+            </script>
             @endif
 
             {{-- Validation Errors --}}
             @if ($errors->any())
-                <div class="mb-4 text-red-400 font-medium">
-                    <ul class="list-disc pl-5">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div class="mb-4 text-red-400 font-medium">
+                <ul class="list-disc pl-5">
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
             @endif
 
             {{-- Appointment Form --}}
-            <div class="shadow-sm sm:rounded-lg p-6" style="background-color: rgb(31, 41, 55); border: 1px solid #374151;">
+            <div class="shadow-sm sm:rounded-lg p-6" style="background-color:rgb(255 255 255 / 14%); border: 1px solid #374151;">
                 <form id="appointmentForm" method="POST" action="{{ route('client.storeappointment') }}">
                     @csrf
                     <input type="hidden" name="client_id" value="{{ $client->id }}">
@@ -63,37 +63,49 @@
 
                     {{-- Type of Appointment --}}
                     <div class="mb-4">
-                    <label class="block text-sm font-medium text-white">Type of Appointment</label>
-                    <select name="TypeofAppointment" required
-                        class="form-control"
-                        style="background-color: #111827; color: white; border: 1px solid #283141;">
-                        <option value="" disabled selected>Select appointment type</option>
-                        <option value="Consultation" {{ old('TypeofAppointment') == 'Consultation' ? 'selected' : '' }}>Consultation</option>
-                        <option value="Follow-up" {{ old('TypeofAppointment') == 'Follow-up' ? 'selected' : '' }}>Follow-up</option>
-                        <option value="Routine Check" {{ old('TypeofAppointment') == 'Routine Check' ? 'selected' : '' }}>Routine Check</option>
-                        <option value="Emergency" {{ old('TypeofAppointment') == 'Emergency' ? 'selected' : '' }}>Emergency</option>
-                        <option value="Psychological Assessment" {{ old('TypeofAppointment') == 'Psychological Assessment' ? 'selected' : '' }}>Psychological Assessment</option>
-                        <option value="Therapy Session" {{ old('TypeofAppointment') == 'Therapy Session' ? 'selected' : '' }}>Therapy Session</option>
-                    </select>
-                </div>
+                        <label class="block text-sm font-medium text-white">Type of Appointment</label>
+                        <select name="TypeofAppointment" required
+                            class="form-control"
+                            style="background-color: #111827; color: white; border: 1px solid #283141;">
+                            <option value="" disabled selected>Select appointment type</option>
+                            <option value="Consultation" {{ old('TypeofAppointment') == 'Consultation' ? 'selected' : '' }}>Consultation</option>
+                            <option value="Follow-up" {{ old('TypeofAppointment') == 'Follow-up' ? 'selected' : '' }}>Follow-up</option>
+                        </select>
+                    </div>
 
                     {{-- Duration --}}
-                <div class="mb-4">
-                    <label for="Duration" class="block text-sm font-medium text-white">Duration (HH:MM)</label>
-                    <input type="text" name="Duration" id="Duration" value="{{ old('Duration') }}"
-                        class="form-control"
-                        placeholder="e.g. 01:30"
-                        pattern="^(0[1-9]|1[0-2]):([0-5][0-9])$"
-                        title="Enter time in 12-hour format (HH:MM), without AM/PM"
-                        style="background-color: #111827; color: white; border: 1px solid #283141;"
-                        required>
-                </div>
+                    <div class="mb-4">
+                        <label for="Duration" class="block text-sm font-medium text-white">Duration (HH:MM)</label>
+                        <input type="text" name="Duration" id="Duration" value="{{ old('Duration') }}"
+                            class="form-control"
+                            placeholder="e.g. 01:30"
+                            pattern="^(0[1-9]|1[0-2]):([0-5][0-9])$"
+                            title="Enter time in 12-hour format (HH:MM), without AM/PM"
+                            style="background-color: #111827; color: white; border: 1px solid #283141;"
+                            required>
+                    </div>
                     {{-- Date --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-white">Date</label>
-                        <input type="date" name="Date" value="{{ old('Date') }}"
-                            class="form-control" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
+                        <style>
+                            input[type="date"]::-webkit-calendar-picker-indicator {
+                                filter: invert(1);
+                            }
+                        </style>
+                        <input
+                            type="date"
+                            name="Date"
+                            value=""
+                            class="form-control"
+                            style="background-color: #111827; color: white; border: 1px solid #283141;"
+                            required>
                     </div>
+
+                    <style>
+                        input[type="time"]::-webkit-calendar-picker-indicator {
+                            filter: invert(1);
+                        }
+                    </style>
 
                     {{-- Time --}}
                     <div class="mb-4">
@@ -115,7 +127,7 @@
 
     {{-- Confirmation Dialog --}}
     <script>
-        document.getElementById('appointmentForm').addEventListener('submit', function (e) {
+        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
             e.preventDefault(); // Prevent immediate submission
 
             Swal.fire({
