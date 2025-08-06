@@ -58,8 +58,7 @@
                             background-color: #00000033;
                             backdrop-filter: blur(50px);
                         "
-                        @keydown.escape.window="open = false"
-                    >
+                        @keydown.escape.window="open = false">
                         <!-- Modal Card -->
                         <div
                             class="animate-fadeInScale"
@@ -72,8 +71,7 @@
                                 max-height: 90vh;
                                 overflow-y: auto;
                                 position: relative;
-                            "
-                        >
+                            ">
                             <!-- Close Button -->
                             <button
                                 @click="open = false"
@@ -87,8 +85,7 @@
                                     display: flex;
                                     justify-content: flex-end;
                                     cursor: pointer;
-                                "
-                            >
+                                ">
                                 ×
                             </button>
 
@@ -99,16 +96,21 @@
                                     font-size: 1.5rem;
                                     font-weight: bold;
                                     margin-bottom: 1.5rem;
-                                "
-                            >
+                                ">
                                 Client Details
                             </h2>
 
-                            <div style="font-size: 0.875rem; color: white;">
+                            <div style="font-size: 1.1rem;color: white;gap: 0.2em;display: flex;flex-direction: column;">
                                 <p><strong>Full Name:</strong> {{ $client->last_name }}, {{ $client->first_name }} {{ $client->middle_name }} {{ $client->name_extension }}</p>
-                                <p><strong>Email:</strong> {{ $client->email }}</p>
-                                <p><strong>Gender:</strong> {{ $client->gender }}</p>
                                 <p><strong>Birthdate:</strong> {{ \Carbon\Carbon::parse($client->birthdate)->format('F d, Y') }}</p>
+                                <p><strong>Age:</strong> {{ \Carbon\Carbon::parse($client->birthdate)->age }} years old</p>
+                                <p><strong>Gender:</strong> {{ ucfirst($client->gender) }}</p>
+                                <p><strong>Civil Status:</strong> {{ ucfirst($client->civil_status) }}</p>
+                                <p><span class="font-semibold">Contact Number:</span> +63{{ ltrim($client->contact_number, '0') }}</p>
+                                <p><strong>Email:</strong> {{ $client->email }}</p>
+                                <p><strong>Address:</strong> {{ $client->address }}</p>
+                                <p><strong>Emergency Contact Name:</strong> {{ $client->emergency_contact_name }}</p>
+                                <p><span class="font-semibold">Emergency Contact Number:</span> +63{{ ltrim($client->emergency_contact_number, '0') }}</p>
                                 <p><strong>Date Added:</strong> {{ \Carbon\Carbon::parse($client->created_at)->format('F d, Y') }}</p>
                                 @if ($client->created_at != $client->updated_at)
                                 <p><strong>Date Updated:</strong> {{ \Carbon\Carbon::parse($client->updated_at)->format('F d, Y') }}</p>
