@@ -51,12 +51,11 @@
                             </div>
 
                             <!-- Right: Add Appointment Button -->
-                            <div class="ml-4 shrink-0" style="display: flex; background-color: #ffffe040; border-radius: 5px; align-items: center;">
-                                <a href="{{ route('appointments.create', ['client' => $client->id]) }}"
-                                    class="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded shadow"
-                                    style="justify-content: center; display: flex; align-content: center; align-items: center; text-align: center;">
-                                    Add Appointment
-                                </a>
+                            <div class="ml-4 shrink-0 flex items-center bg-yellow-100 border border-yellow-300 rounded px-2 py-1">
+                            <a href="{{ route('clients.addappointment', ['client' => $client->id]) }}"
+                            class="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-sm rounded shadow">
+                            Add Appointment
+                        </a>
                             </div>
                         </div>
                     </div>

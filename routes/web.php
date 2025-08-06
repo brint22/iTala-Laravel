@@ -29,9 +29,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/clients/addclient', [ClientController::class, 'addClient'])->name('clients.addclient');
     Route::post('/clients/store', [ClientController::class, 'store'])->name('clients.store');
     Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
-   Route::get('/appointments/create/{client}', [AppointmentController::class, 'create'])->name('appointments.create');
+    Route::get('/appointments/create/{client}', [AppointmentController::class, 'create'])->name('appointments.create');
+  
+    
+    // Route with client parameter
+    Route::get('/clients/{client}/addappointment', [ClientController::class, 'addappointment'])->name('clients.addappointment');
 
-
+    //Client Appointment
+    Route::get('/clients/{client}/addappointment', [ClientController::class, 'addappointment'])->name('clients.addappointment');
+    Route::post('/clients/storeappointment', [ClientController::class, 'storeAppointment'])->name('client.storeappointment');
+    
     // Homepage
     Route::get('/homepage', function () {
         return view('users.homepage');
