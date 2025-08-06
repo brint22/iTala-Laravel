@@ -62,6 +62,8 @@ Route::middleware('auth')->group(function () {
 
     // ✅ ADD THIS: View Appointments Route (fixes the error)
     Route::get('/clients/{client}/appointments', [AppointmentController::class, 'view'])->name('appointments.view');
+    Route::get('/clients/{client}/add-session-note', [ClientController::class, 'addSessionNote'])
+        ->name('clients.addsessionnote');
 
 
     // Homepage (for RPMs)

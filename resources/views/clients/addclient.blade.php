@@ -73,6 +73,12 @@
                         <input type="email" name="email" value="{{ old('email') }}" class="mt-1 block w-full rounded" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
                     </div>
 
+                    <style>
+                        input[type="date"]::-webkit-calendar-picker-indicator {
+                            filter: invert(1);
+                        }
+                    </style>
+                    
                     {{-- Birthdate --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Birthdate</label>
@@ -98,8 +104,8 @@
                             <option value="">Select Civil Status</option>
                             <option value="Single" {{ old('civil_status') == 'Single' ? 'selected' : '' }}>Single</option>
                             <option value="Married" {{ old('civil_status') == 'Married' ? 'selected' : '' }}>Married</option>
-                        <option value="Separated" {{ old('civil_status') == 'Separated' ? 'selected' : '' }}>Separated</option>
-                        <option value="Annulled" {{ old('civil_status') == 'Annulled' ? 'selected' : '' }}>Annulled</option>
+                            <option value="Separated" {{ old('civil_status') == 'Separated' ? 'selected' : '' }}>Separated</option>
+                            <option value="Annulled" {{ old('civil_status') == 'Annulled' ? 'selected' : '' }}>Annulled</option>
                             <option value="Divorced" {{ old('civil_status') == 'Divorced' ? 'selected' : '' }}>Divorced</option>
                             <option value="Widowed" {{ old('civil_status') == 'Widowed' ? 'selected' : '' }}>Widowed</option>
                         </select>

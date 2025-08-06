@@ -52,12 +52,23 @@
                             </div>
 
                             <!-- Right: Appointment Controls -->
-                            <div class="ml-4 shrink-0 flex flex-col items-center space-y-2" style="flex-direction: row; align-items: center; justify-content: center; gap: 1em; padding: 0; margin: 0;">
+                            <div class="ml-4 shrink-0 flex flex-col items-center space-y-2"
+                                style="flex-direction: row; align-items: center; justify-content: center; gap: 1em; padding: 0; margin: 0;">
+
+                                {{-- ✅ Add Session Note Button (only if appointments exist) --}}
+                                @if ($client->appointments->count() > 0)
+                                <a href="{{ route('clients.addsessionnote', ['client' => $client->id]) }}"
+                                    class="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white text-sm rounded shadow w-max"
+                                    style="padding: 1em; background-color: #d6e0ff42;">
+                                    Add Session Note
+                                </a>
+                                @endif
+
                                 {{-- Conditional View/No Appointment --}}
                                 @if ($client->appointments->count() > 0)
                                 <button @click.stop="showAppointments = true"
                                     class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-sm rounded shadow w-max"
-                                    style="padding: 1em; background-color: #6a85ab4d;">
+                                    style="padding: 1em; background-color: #6a85ab4d; margin: 0;">
                                     View Appointment
                                 </button>
                                 @else
@@ -71,6 +82,7 @@
                                     Add Appointment
                                 </a>
                             </div>
+
                         </div>
                     </div>
 
