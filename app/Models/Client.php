@@ -29,6 +29,12 @@ class Client extends Model
         return $this->hasMany(Appointment::class);
     }
 
+    public function sessionNotes()
+{
+    return $this->hasMany(SessionNote::class);
+}
+
+
         protected function fullName(): Attribute
     {
         return Attribute::get(function () {

@@ -13,4 +13,9 @@ class Appointment extends Model
         'Date',
         'Time',
     ];
+
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class);
+    }
 }

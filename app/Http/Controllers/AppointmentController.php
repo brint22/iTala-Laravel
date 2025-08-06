@@ -16,4 +16,6 @@ class AppointmentController extends Controller
             'appointments' => $appointments,
         ]);
     }
+
+    
 }

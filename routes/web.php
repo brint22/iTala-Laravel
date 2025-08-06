@@ -7,20 +7,19 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\SessionNoteController;
 
 // Landing Page
 Route::get('/', function () {
-    // Redirect based on authentication and role
     if (Auth::check()) {
         return Auth::user()->role === 'registered psychometrician'
             ? redirect('/homepage')
             : redirect('/dashboard');
     }
-
     return view('welcome');
 });
 
-// Dashboard (only for non-RPM users)
+// Dashboard for Non-RPM Users
 Route::get('/dashboard', function () {
     if (!Auth::check()) {
         return redirect('/login');
@@ -30,7 +29,6 @@ Route::get('/dashboard', function () {
         return redirect('/homepage');
     }
 
-    // Prevent caching (blocks browser back access)
     return Response::view('dashboard')
         ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
         ->header('Pragma', 'no-cache')
@@ -40,12 +38,12 @@ Route::get('/dashboard', function () {
 // Authenticated Routes
 Route::middleware('auth')->group(function () {
 
-    // Profile Management
+    // Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // User Accounts
+    // Users
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
     Route::get('/view-accounts', [UserController::class, 'viewAccounts'])->name('users.index');
@@ -59,14 +57,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/appointments/create/{client}', [AppointmentController::class, 'create'])->name('appointments.create');
     Route::get('/clients/{client}/addappointment', [ClientController::class, 'addappointment'])->name('clients.addappointment');
     Route::post('/clients/storeappointment', [ClientController::class, 'storeAppointment'])->name('client.storeappointment');
-
-    // ✅ ADD THIS: View Appointments Route (fixes the error)
     Route::get('/clients/{client}/appointments', [AppointmentController::class, 'view'])->name('appointments.view');
-    Route::get('/clients/{client}/add-session-note', [ClientController::class, 'addSessionNote'])
-        ->name('clients.addsessionnote');
 
+    // Session Notes
+    Route::get('/clients/{client}/add-session-note', [ClientController::class, 'addSessionNoteForm'])->name('clients.addsessionnote');
+    Route::post('/clients/store-session-note', [ClientController::class, 'storeSessionNote'])->name('clients.storesessionnote');
+    Route::post('/clients/{client}/session-notes', [SessionNoteController::class, 'store'])->name('clients.sessionnotes.store');
 
-    // Homepage (for RPMs)
+    // Homepage for RPMs
     Route::get('/homepage', function () {
         return view('users.homepage');
     })->name('homepage');
