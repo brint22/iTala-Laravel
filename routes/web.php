@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/clients/storeappointment', [ClientController::class, 'storeAppointment'])->name('client.storeappointment');
 
     // ✅ ADD THIS: View Appointments Route (fixes the error)
-   Route::get('/appointments/view/{client}', [AppointmentController::class, 'view'])->name('appointments.view');
+    Route::get('/clients/{client}/appointments', [AppointmentController::class, 'view'])->name('appointments.view');
 
 
     // Homepage (for RPMs)

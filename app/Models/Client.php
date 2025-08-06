@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Client extends Model
 {
@@ -27,6 +28,16 @@ class Client extends Model
     {
         return $this->hasMany(Appointment::class);
     }
+
+        protected function fullName(): Attribute
+    {
+        return Attribute::get(function () {
+            return $this->last_name . ', ' . $this->first_name . 
+                ($this->middle_name ? ' ' . $this->middle_name[0] . '.' : '') .
+                ($this->name_extension ? ' ' . $this->name_extension : '');
+        });
+    }
+    
 }
 
 
