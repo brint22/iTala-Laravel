@@ -92,4 +92,11 @@ class ClientController extends Controller
         $clients = Client::paginate(10);
         return view('clients.ViewClients', compact('clients'));
     }
+
+    public function viewSessionNotes($clientId)
+    {
+        $client = Client::with('sessionNotes')->findOrFail($clientId);
+
+        return view('clients.ViewSessionNotes', compact('client'));
+    }
 }
