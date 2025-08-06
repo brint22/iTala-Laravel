@@ -68,7 +68,7 @@
                             style="
             width: 500px;
             padding: 2em;
-            background-color: #808080a6;
+            background-color: #ffffff2b;
             color: white;
             border-radius: 0.5rem;
             max-height: 90vh;
@@ -95,7 +95,7 @@
                             <!-- Modal Content -->
                             <h2
                                 style="
-                text-align: center;
+                text-align: left;
                 font-size: 1.5rem;
                 font-weight: bold;
                 margin-bottom: 1.5rem;
