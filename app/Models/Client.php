@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Models\SessionNote;
 
-class Client extends Model
+
+class Client extends Authenticatable
 {
     protected $fillable = [
         'first_name',
@@ -21,28 +23,37 @@ class Client extends Model
         'address',
         'emergency_contact_name',
         'emergency_contact_number',
+        'password', // Make sure this is fillable
     ];
 
-    // 🔽 Add this relationship method
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
     public function appointments(): HasMany
     {
         return $this->hasMany(Appointment::class);
     }
 
-    public function sessionNotes()
+    public function sessionNotes(): HasMany
+    {
+        return $this->hasMany(SessionNote::class);
+    }
+
+    public function user()
 {
-    return $this->hasMany(SessionNote::class);
+    return $this->belongsTo(User::class);
 }
 
-        protected function fullName(): Attribute
+    protected function fullName(): Attribute
     {
         return Attribute::get(function () {
-            return $this->last_name . ', ' . $this->first_name . 
+            return $this->last_name . ', ' . $this->first_name .
                 ($this->middle_name ? ' ' . $this->middle_name[0] . '.' : '') .
                 ($this->name_extension ? ' ' . $this->name_extension : '');
         });
     }
+
     
 }
-
-

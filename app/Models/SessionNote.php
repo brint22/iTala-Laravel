@@ -19,8 +19,8 @@ class SessionNote extends Model
         return $this->belongsTo(Client::class);
     }
 
-    public function appointment(): BelongsTo
+    public function appointment()
     {
-        return $this->belongsTo(Appointment::class);
+        return $this->belongsTo(Appointment::class, 'appointment_id');
     }
 }

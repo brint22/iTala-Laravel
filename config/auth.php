@@ -97,6 +97,12 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+
+            // ✅ NEW: Client provider
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Client::class,
+        ],
     ],
 
     /*

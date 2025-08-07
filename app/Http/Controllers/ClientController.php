@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Appointment;
 use App\Models\SessionNote; // 👈 Make sure this is included
-use App\Models\AddAccount;
-use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
@@ -88,12 +89,12 @@ class ClientController extends Controller
         return redirect()->back()->with('success', 'Session note saved successfully.');
     }
 
-      // Show the add account form with password field
-  public function addAccount(Client $client)
-{
-    return view('clients.add-account', compact('client'));
-}
-  // Show the Add Account (Set Password) form
+    // Show the add account form with password field
+    public function addAccount(Client $client)
+    {
+        return view('clients.add-account', compact('client'));
+    }
+    // Show the Add Account (Set Password) form
     public function createAccount($id)
     {
         $client = Client::findOrFail($id);
@@ -101,25 +102,49 @@ class ClientController extends Controller
     }
 
     // Store the password securely
-public function storeAccount(Request $request, $id)
-{
-    // Validate password and confirmation
-    $request->validate([
-        'password' => 'required|string|min:6|confirmed',  // Ensure password matches confirmation
-    ]);
+    public function storeAccount(Request $request, $id)
+    {
+        $request->validate([
+            'password' => 'required|string|min:6|confirmed',
+        ]);
 
-    // Find the client by ID
-    $client = AddAccount::findOrFail($id);
+        // Get the client
+        $client = Client::findOrFail($id);
 
-    // Hash the password before saving
-    $client->Password = Hash::make($request->password);
+        // Check if a user already exists with this email
+        $existingUser = User::where('email', $client->email)->first();
 
-    // Save the client with the hashed password
-    $client->save();
+        if ($existingUser) {
+            return redirect()->back()->with('error', 'User account already exists for this client.');
+        }
 
-    // Redirect back with success message
-    return redirect()->route('clients.index')->with('success', 'Password has been set successfully.');
-}
+        // Create a user account for this client
+        $user = User::create([
+            'name' => $client->first_name . ' ' . $client->last_name,
+            'first_name' => $client->first_name,
+            'middle_name' => $client->middle_name,
+            'last_name' => $client->last_name,
+            'name_extension' => $client->name_extension,
+            'birthdate' => $client->birthdate,
+            'gender' => $client->gender,
+            'contact_number' => $client->contact_number,
+            'license_number' => null, // Or handle as needed
+            'role' => 'Client',
+            'email' => $client->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+
+        // Link user to client
+        $client->user_id = $user->id;
+        $client->password = Hash::make($request->password); // Optional: Store password on Client too if needed
+        $client->save();
+
+        return redirect()->route('clients.index')->with('success', 'Client account created successfully.');
+    }
+
+
+
 
 
     public function index()
@@ -127,11 +152,26 @@ public function storeAccount(Request $request, $id)
         $clients = Client::paginate(10);
         return view('clients.ViewClients', compact('clients'));
     }
-
     public function viewSessionNotes($clientId)
     {
-        $client = Client::with('sessionNotes')->findOrFail($clientId);
-
+        $client = Client::with('sessionNotes.appointment')->findOrFail($clientId);
         return view('clients.ViewSessionNotes', compact('client'));
+    }
+
+    public function dashboard()
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        $client = $user->client;
+
+        if (!$client) {
+            return redirect()->back()->with('error', 'Client profile not found.');
+        }
+
+        $sessionNotes = $client->sessionNotes;
+
+
+        return view('clients.dashboard', compact('client', 'sessionNotes'));
     }
 }

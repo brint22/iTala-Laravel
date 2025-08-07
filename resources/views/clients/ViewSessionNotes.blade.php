@@ -31,7 +31,7 @@
                 @foreach ($client->sessionNotes as $note)
                 <div
                     class="bg-gray-800 text-white p-4 rounded-lg shadow mb-4 cursor-pointer hover:bg-gray-700 transition-all duration-200"
-                    @click="open = true; selectedNote = {{ $note->toJson() }}">
+                    @click="open = true; selectedNote = {{ json_encode($note) }}">
                     <p><strong>Date:</strong> {{ \Carbon\Carbon::parse($note->created_at)->format('F j, Y') }}</p>
                     <p><strong>Type:</strong> {{ $note->format_type }}</p>
                 </div>
@@ -47,12 +47,12 @@
             style="background-color: #00000033; backdrop-filter: blur(50px);">
             <div class="animate-fadeInScale relative overflow-y-auto"
                 style="
-            width: 500px;
-            padding: 2em;
-            background-color: #80808033;
-            border-radius: 1rem;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        "
+                    width: 500px;
+                    padding: 2em;
+                    background-color: #80808033;
+                    border-radius: 1rem;
+                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+                "
                 @click.away="open = false">
                 <!-- X Button -->
                 <button @click="open = false"
@@ -60,27 +60,25 @@
                     aria-label="Close" style="position: absolute; top: 1rem; right: 1.5rem; color: white; font-size: 2.5rem; cursor: pointer;">&times;</button>
 
                 <h3 class="text-xl font-bold mb-4 text-white">Session Note Details</h3>
+
                 <p class="text-white"><strong>Date:</strong>
                     <span x-text="new Date(selectedNote.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })"></span>
                 </p>
-                <p class="text-white"><strong>Type:</strong> <span x-text="selectedNote.format_type"></span></p>
-                <p class="text-white"><strong>Related Appointment Date:</strong>
-                    <span x-text="
-        selectedNote.appointment?.date && selectedNote.appointment?.type 
-            ? new Date(selectedNote.appointment.date).toLocaleString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: '2-digit',
-                hour12: true
-            }) + ' (' + selectedNote.appointment.type + ')' 
-            : 'N/A'
-    "></span>
+
+                <p class="text-white"><strong>Type:</strong>
+                    <span x-text="selectedNote.format_type"></span>
                 </p>
 
-                <span x-text="selectedNote.appointment ? new Date(selectedNote.appointment.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'"></span>
+                <p class="text-sm text-gray-400 mb-2">
+                    <strong>Related Appointment:</strong>
+                    @if ($note->appointment)
+                    {{ $note->appointment->TypeofAppointment ?? 'Unknown Type' }} -
+                    {{ \Carbon\Carbon::parse($note->appointment->Date . ' ' . $note->appointment->Time)->format('M j, Y g:i A') }}
+                    @else
+                    N/A
+                    @endif
                 </p>
+
                 <p class="text-white mt-4"><strong>Description:</strong></p>
                 <p class="text-white" x-text="selectedNote.description"></p>
             </div>

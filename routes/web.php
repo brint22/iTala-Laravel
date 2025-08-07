@@ -87,5 +87,9 @@ Route::post('/clients/add-account/{id}', [ClientController::class, 'storeAccount
     })->name('homepage');
 });
 
+// web.php
+Route::get('/clients/dashboard', [ClientController::class, 'dashboard'])->name('client.dashboard');
+
+
 // Auth Routes
 require __DIR__ . '/auth.php';

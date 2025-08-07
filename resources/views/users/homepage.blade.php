@@ -39,7 +39,7 @@
                                     <p class="text-sm text-white/70 mb-4" style="color: lightgray;">
                                         Register a new user into the system.
                                     </p>
-                                    <form action="http://localhost:8000/clients/addclient" method="GET">
+                                    <form action="{{ url('/clients/addclient') }}" method="GET">
                                         <button type="submit"
                                             class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
                                             style="color: lightyellow; font-weight: bold; text-align: left;">
@@ -55,7 +55,7 @@
                                     <p class="text-sm text-white/70 mb-4" style="color: lightgray;">
                                         Browse the list of allclients.
                                     </p>
-                                    <a href="http://localhost:8000/clients"
+                                    <a href="{{ route('clients.index') }}""
                                         class="block w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition"
                                         style="color: lightyellow; font-weight: bold; text-align: left;">
                                         View Clients

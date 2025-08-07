@@ -24,16 +24,26 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        // Authenticate the user
         $request->authenticate();
-    $request->session()->regenerate();
 
-    $user = Auth::user();
+        // Regenerate session to prevent fixation
+        $request->session()->regenerate();
 
-    if ($user->role === 'Registered Psychometrician') {
-        return redirect()->route('homepage'); // redirects to homepage.blade.php
-    }
+        $user = Auth::user();
 
-    return redirect()->intended(route('dashboard', absolute: false));
+        // Check if the user has a specific role
+        if ($user->role === 'Registered Psychometrician') {
+            return redirect()->route('homepage'); // redirects to homepage.blade.php
+        }
+
+        // Redirect client users
+        if ($user->role === 'Client') {
+            return redirect()->route('client.dashboard');
+        }
+
+        // Fallback redirection for other roles
+        return redirect()->intended(route('dashboard', absolute: false));
     }
 
     /**

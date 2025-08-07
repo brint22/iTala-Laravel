@@ -24,4 +24,14 @@ class SessionNoteController extends Controller
 
         return redirect()->back()->with('success', 'Session Note Added!');
     }
+
+    public function viewSessionNotes($clientId)
+{
+    $client = Client::with('sessionNotes.appointment')->findOrFail($clientId);
+
+    return view('clients.ViewSessionNotes', compact('client'));
+}
+
+
+    
 }
