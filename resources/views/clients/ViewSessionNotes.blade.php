@@ -25,15 +25,28 @@
 
     @if ($client->appointments->isNotEmpty())
     <div x-data="{ open: false, selectedNote: {} }" x-cloak>
-        <div class="py-6 px-4 max-w-4xl mx-auto">
+        <div class="py-6 px-4 max-w-4xl mx-auto" style="max-width: 70%;">
+            @php
+            date_default_timezone_set('Asia/Manila');
+            @endphp
+
             @if ($client->sessionNotes->isNotEmpty())
             <div>
                 @foreach ($client->sessionNotes as $note)
                 <div
                     class="bg-gray-800 text-white p-4 rounded-lg shadow mb-4 cursor-pointer hover:bg-gray-700 transition-all duration-200"
                     @click="open = true; selectedNote = {{ json_encode($note) }}">
-                    <p><strong>Date:</strong> {{ \Carbon\Carbon::parse($note->created_at)->format('F j, Y') }}</p>
-                    <p><strong>Type:</strong> {{ $note->format_type }}</p>
+                    <p><strong>Date:</strong> {{ \Carbon\Carbon::parse($note->created_at)->timezone('Asia/Manila')->format('F j, Y - g:i A') }}</p>
+                    <p><strong>Format Type:</strong> {{ $note->format_type }}</p>
+                    <p class="text-sm text-gray-400 mb-2">
+                        <strong>Related Appointment:</strong>
+                        @if ($note->appointment)
+                        {{ $note->appointment->TypeofAppointment ?? 'Unknown Type' }} -
+                        {{ \Carbon\Carbon::parse($note->appointment->Date . ' ' . $note->appointment->Time)->format('M j, Y g:i A') }}
+                        @else
+                        N/A
+                        @endif
+                    </p>
                 </div>
                 @endforeach
             </div>
