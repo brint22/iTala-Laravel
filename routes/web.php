@@ -64,7 +64,23 @@ Route::middleware('auth')->group(function () {
     Route::post('/clients/store-session-note', [ClientController::class, 'storeSessionNote'])->name('clients.storesessionnote');
     Route::post('/clients/{client}/session-notes', [SessionNoteController::class, 'store'])->name('clients.sessionnotes.store');
 
-Route::get('/clients/{client}/session-notes', [ClientController::class, 'viewSessionNotes'])->name('clients.viewsessionnotes');
+
+  // Show form to set password
+Route::get('/clients/{client}/addaccount', [ClientController::class, 'addAccount'])->name('clients.addaccount');
+
+
+// Handle password submission
+Route::post('/clients/store-account/{id}', [ClientController::class, 'storeAccount'])->name('clients.storeaccount');
+
+
+// View all clients (this is your existing route for the index page)
+Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
+
+Route::post('/clients/add-account/{id}', [ClientController::class, 'storeAccount'])->name('clients.storeaccount');
+
+
+
+    Route::get('/clients/{client}/session-notes', [ClientController::class, 'viewSessionNotes'])->name('clients.viewsessionnotes');
     // Homepage for RPMs
     Route::get('/homepage', function () {
         return view('users.homepage');

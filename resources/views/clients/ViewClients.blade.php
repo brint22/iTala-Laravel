@@ -97,6 +97,15 @@
                                     style="padding: 1em; margin: 0; background-color: #ffffe042;">
                                     Add Appointment
                                 </a>
+
+                                {{-- Add Account Button --}}
+                              @if(is_null($client->Password))
+                                <a href="{{ route('clients.addaccount', ['client' => $client->id]) }}"
+                                    class="px-3 py-1 bg-indigo-500 hover:bg-indigo-600 text-white text-sm rounded shadow w-max"
+                                    style="padding: 1em; margin: 0; background-color: #c4c4ff52;">
+                                    Add Account
+                                </a>
+                            @endif
                             </div>
 
                         </div>

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Appointment;
 use App\Models\SessionNote; // 👈 Make sure this is included
+use App\Models\AddAccount;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ClientController extends Controller
 {
@@ -85,6 +87,39 @@ class ClientController extends Controller
 
         return redirect()->back()->with('success', 'Session note saved successfully.');
     }
+
+      // Show the add account form with password field
+  public function addAccount(Client $client)
+{
+    return view('clients.add-account', compact('client'));
+}
+  // Show the Add Account (Set Password) form
+    public function createAccount($id)
+    {
+        $client = Client::findOrFail($id);
+        return view('clients.addaccount', compact('client'));
+    }
+
+    // Store the password securely
+public function storeAccount(Request $request, $id)
+{
+    // Validate password and confirmation
+    $request->validate([
+        'password' => 'required|string|min:6|confirmed',  // Ensure password matches confirmation
+    ]);
+
+    // Find the client by ID
+    $client = AddAccount::findOrFail($id);
+
+    // Hash the password before saving
+    $client->Password = Hash::make($request->password);
+
+    // Save the client with the hashed password
+    $client->save();
+
+    // Redirect back with success message
+    return redirect()->route('clients.index')->with('success', 'Password has been set successfully.');
+}
 
 
     public function index()
