@@ -38,7 +38,7 @@
                             content: "";
                             position: absolute;
                             inset: 0;
-                            background-color: #37415178;
+                            background-color: #1966e00f;
                             /* same as bg-gray-700 */
                             border-radius: 0.5rem;
                             /* match rounded-lg */
@@ -92,10 +92,12 @@
                                 padding: 0;
                                 margin: 0;
                                 position: absolute;
-                                top: 1em;
+                                top: 50%;
                                 right: 1em;
+                                transform: translateY(-50%);
                                 z-index: 10;
                             ">
+
 
                                 @php
                                 $hasAppointments = $client->appointments()->exists();
