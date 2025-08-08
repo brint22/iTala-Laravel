@@ -88,8 +88,8 @@
                     </template>
                 </p>
 
-                <p class="text-white text-sm mb-1"><strong>Format Type:</strong>
-                    <span x-text="selectedNote.format_type"></span>
+                <p class="text-white text-sm mb-1"><strong>FType:</strong>
+                    Subjective Objective Assessment Plan (<span x-text="selectedNote.format_type"></span>)
                 </p>
 
                 <template x-if="selectedNote.description">

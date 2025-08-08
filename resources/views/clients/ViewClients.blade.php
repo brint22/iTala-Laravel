@@ -32,8 +32,38 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 @forelse ($clients as $client)
                 <div x-data="{ open: false, showAppointments: false }">
+
+                    <style>
+                        .hover-layer::before {
+                            content: "";
+                            position: absolute;
+                            inset: 0;
+                            background-color: #37415178;
+                            /* same as bg-gray-700 */
+                            border-radius: 0.5rem;
+                            /* match rounded-lg */
+                            opacity: 0;
+                            transition: opacity 0.3s ease;
+                            z-index: 0;
+                        }
+
+                        .hover-layer:hover::before {
+                            opacity: 1;
+                        }
+
+                        .hover-layer>* {
+                            position: relative;
+                            z-index: 1;
+                        }
+
+                        .hover-container:hover .hover-controls {
+                            display: flex !important;
+                        }
+                    </style>
+
                     <!-- Client Card -->
-                    <div class="bg-gray-800 shadow rounded-lg p-4 hover:bg-gray-700 transition">
+                    <div class="hover-container hover-layer bg-gray-800 shadow rounded-lg p-4 transition" style="position: relative; margin-bottom: 1em;">
+
                         <div class="flex items-start justify-between">
                             <!-- Left: Clickable Area for Modal -->
                             <div @click="open = true" class="cursor-pointer flex-1">
@@ -52,8 +82,20 @@
                             </div>
 
                             <!-- Right: Appointment Controls -->
-                            <div class="ml-4 shrink-0 flex flex-col items-center space-y-2"
-                                style="flex-direction: row; align-items: center; justify-content: center; gap: 1em; padding: 0; margin: 0;">
+                            <div class="hover-controls ml-4 shrink-0 flex flex-col items-center space-y-2"
+                                style="
+                                display: none;
+                                flex-direction: row;
+                                align-items: center;
+                                justify-content: center;
+                                gap: 1em;
+                                padding: 0;
+                                margin: 0;
+                                position: absolute;
+                                top: 1em;
+                                right: 1em;
+                                z-index: 10;
+                            ">
 
                                 @php
                                 $hasAppointments = $client->appointments()->exists();
@@ -99,13 +141,13 @@
                                 </a>
 
                                 {{-- Add Account Button --}}
-                              @if(is_null($client->Password))
+                                @if(is_null($client->Password))
                                 <a href="{{ route('clients.addaccount', ['client' => $client->id]) }}"
                                     class="px-3 py-1 bg-indigo-500 hover:bg-indigo-600 text-white text-sm rounded shadow w-max"
                                     style="padding: 1em; margin: 0; background-color: #c4c4ff52;">
                                     Add Account
                                 </a>
-                            @endif
+                                @endif
                             </div>
 
                         </div>
@@ -201,3 +243,9 @@
             </div>
         </div>
 </x-app-layout>
+
+<style>
+    .hover-container:hover .hover-controls {
+        display: flex !important;
+    }
+</style>
