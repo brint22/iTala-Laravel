@@ -62,7 +62,9 @@
                     </style>
 
                     <!-- Client Card -->
-                    <div class="hover-container hover-layer bg-gray-800 shadow rounded-lg p-4 transition" style="position: relative; margin-bottom: 1em;">
+                    <div x-data="{ clicked: false }"
+                        class="hover-container hover-layer bg-gray-800 shadow rounded-lg p-4 transition"
+                        style="position: relative; margin-bottom: 1em;">
 
                         <div class="flex items-start justify-between">
                             <!-- Left: Clickable Area for Modal -->
@@ -251,3 +253,4 @@
         display: flex !important;
     }
 </style>
+
