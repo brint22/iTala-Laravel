@@ -72,28 +72,36 @@
                     class="absolute top-4 right-4 text-white text-xl hover:text-gray-300 transition"
                     aria-label="Close" style="position: absolute; top: 1rem; right: 1.5rem; color: white; font-size: 2.5rem; cursor: pointer;">&times;</button>
 
-                <h3 class="text-xl font-bold mb-4 text-white">Session Note Details</h3>
 
-                <p class="text-white"><strong>Date:</strong>
-                    <span x-text="new Date(selectedNote.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })"></span>
+                <h3 class="text-lg font-bold mb-3 text-white text-center">Session Note Details</h3>
+
+                <p class="text-white text-sm mb-1"><strong>Date Creation:</strong>
+                    <span x-text="new Date(selectedNote.created_at).toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true })"></span>
                 </p>
 
-                <p class="text-white"><strong>Type:</strong>
-                    <span x-text="selectedNote.format_type"></span>
+                <p class="text-white text-sm mb-1"><strong>Related Appointment:</strong>
+                    <template x-if="selectedNote.appointment">
+                        <span x-text="`${selectedNote.appointment?.TypeofAppointment ?? 'Unknown Type'} - ${new Date(selectedNote.appointment?.Date + ' ' + selectedNote.appointment?.Time).toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true })}`"></span>
+                    </template>
+                    <template x-if="!selectedNote.appointment">
+                        <span>N/A</span>
+                    </template>
                 </p>
 
-                <p class="text-sm text-gray-400 mb-2">
-                    <strong>Related Appointment:</strong>
-                    @if ($note->appointment)
-                    {{ $note->appointment->TypeofAppointment ?? 'Unknown Type' }} -
-                    {{ \Carbon\Carbon::parse($note->appointment->Date . ' ' . $note->appointment->Time)->format('M j, Y g:i A') }}
-                    @else
-                    N/A
-                    @endif
+                <p class="text-white text-sm mb-1"><strong>Type:</strong>
+                    Subjective Objective Assessment Plan (<span x-text="selectedNote.format_type"></span>)
                 </p>
 
-                <p class="text-white mt-4"><strong>Description:</strong></p>
-                <p class="text-white" x-text="selectedNote.description"></p>
+                <template x-if="selectedNote.description">
+                    <div class="mt-4 text-white text-sm">
+                        <p class="font-semibold mb-1">Session Note Content:</p>
+                        <div class="bg-gray-900 p-3 rounded text-white text-sm" style="white-space: pre-wrap; display: flex;">
+                            <span x-text="selectedNote.description.trim()"></span>
+                        </div>
+                    </div>
+                </template>
+
+
             </div>
         </div>
     </div>
@@ -101,3 +109,19 @@
     <p class="text-center text-gray-400 italic mt-10">This client has no appointments yet.</p>
     @endif
 </x-app-layout>
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('noteDisplay', () => ({
+            selectedNote: {},
+
+            get cleanedDescription() {
+                if (!this.selectedNote.description) return '';
+                return this.selectedNote.description
+                    .replace(/[ \t]+\n/g, '\n') // remove spaces before line breaks
+                    .replace(/\n{2,}/g, '\n') // remove extra blank lines
+                    .trim(); // remove leading/trailing space
+            }
+        }))
+    })
+</script>
