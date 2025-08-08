@@ -20,20 +20,38 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
-                            <tr>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ ucfirst($user->role) }}</td>
-                            </tr>
-                            @endforeach
+                            @php
+                                $filteredUsers = $users->filter(function ($user) {
+                                    $currentRole = auth()->user()->role;
+
+                                    if ($currentRole === 'super_admin') {
+                                        return in_array($user->role, ['admin', 'Registered Psychometrician']);
+                                    }
+
+                                    if ($currentRole === 'admin') {
+                                        return $user->role === 'Registered Psychometrician';
+                                    }
+
+                                    return false;
+                                });
+                            @endphp
+
+                            @forelse ($filteredUsers as $user)
+                                <tr>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->role }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="3" class="text-center text-sm text-gray-500 dark:text-gray-400 py-4">
+                                        No user accounts found.
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
 
-
-                    @if ($users->isEmpty())
-                    <p class="mt-4 text-sm text-gray-500 dark:text-gray-400">No user accounts found.</p>
-                    @endif
                 </div>
             </div>
         </div>
