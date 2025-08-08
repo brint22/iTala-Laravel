@@ -45,6 +45,7 @@
                             opacity: 0;
                             transition: opacity 0.3s ease;
                             z-index: 0;
+                            margin-bottom: 1em;
                         }
 
                         .hover-layer:hover::before {
