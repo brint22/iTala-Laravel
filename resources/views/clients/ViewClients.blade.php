@@ -38,7 +38,7 @@
                             content: "";
                             position: absolute;
                             inset: 0;
-                            background-color: #1966e00f;
+                            background-color: #0000001f;
                             /* same as bg-gray-700 */
                             border-radius: 0.5rem;
                             /* match rounded-lg */
