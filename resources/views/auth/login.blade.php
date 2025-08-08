@@ -2,6 +2,11 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+    <!-- Login Heading -->
+    <h2 class="text-2xl font-semibold text-center text-gray-800 dark:text-white mb-6" style="text-align: center;">
+        Login to iTala
+    </h2>
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
