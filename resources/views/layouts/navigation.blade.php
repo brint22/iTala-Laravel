@@ -4,7 +4,7 @@
             <div class="flex">
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <img src="{{ asset('build/Images/subtle-itala-yellow.png') }}" alt="iTala Logo" class="w-auto h-20" style="padding-right:1.5em;">
+                        <img src="{{ asset('build/Images/iTala-Logo-new.png') }}" alt="iTala Logo" class="w-auto h-20" style="padding-right:1.5em;">
                     </a>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">

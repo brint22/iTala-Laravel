@@ -1,5 +1,4 @@
 <x-app-layout>
-    {{-- Global Background Override --}}
     <style>
         body {
             background-color: rgb(31, 41, 55) !important;
@@ -17,20 +16,45 @@
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
             {{-- Success Alert --}}
-            @if (session('success'))
+            @if(session('success'))
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
                         icon: 'success',
                         title: 'Success!',
                         text: "{{ session('success') }}",
-                        showConfirmButton: false,
-                        timer: 2500,
-                        timerProgressBar: true,
+                        confirmButtonText: 'OK',
                         background: '#1f2937',
                         color: '#f9fafb',
                         customClass: {
-                            popup: 'rounded-xl shadow-lg'
+                            popup: 'rounded-xl shadow-lg',
+                            confirmButton: 'bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = "{{ route('clients.index') }}";
+                        }
+                    });
+                });
+            </script>
+            @endif
+
+            {{-- Already Added Alert --}}
+            @if (session('exists'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Already Added',
+                        text: "{{ session('exists') }}",
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK',
+                        background: '#1f2937',
+                        color: '#f9fafb',
+                        customClass: {
+                            popup: 'rounded-xl shadow-lg',
+                            confirmButton: 'bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg'
                         }
                     });
                 });
@@ -49,19 +73,17 @@
             @endif
 
             {{-- Appointment Form --}}
-            <div class="shadow-sm sm:rounded-lg p-6" style="background-color:rgb(255 255 255 / 14%); border: 1px solid #374151;">
+            <div class="shadow-sm sm:rounded-lg p-6" style="background-color:rgba(255, 255, 255, 0.14); border: 1px solid #374151;">
                 <form id="appointmentForm" method="POST" action="{{ route('client.storeappointment') }}">
                     @csrf
                     <input type="hidden" name="client_id" value="{{ $client->id }}">
 
-                    {{-- Client Name --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-white">Client Name</label>
                         <input type="text" disabled value="{{ $client->first_name }} {{ $client->last_name }}"
                             class="form-control" style="background-color: #111827; color: white; border: 1px solid #283141;">
                     </div>
 
-                    {{-- Type of Appointment --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-white">Type of Appointment</label>
                         <select name="TypeofAppointment" required
@@ -73,7 +95,6 @@
                         </select>
                     </div>
 
-                    {{-- Duration --}}
                     <div class="mb-4">
                         <label for="Duration" class="block text-sm font-medium text-white">Duration (HH:MM)</label>
                         <input type="text" name="Duration" id="Duration" value="{{ old('Duration') }}"
@@ -84,7 +105,7 @@
                             style="background-color: #111827; color: white; border: 1px solid #283141;"
                             required>
                     </div>
-                    {{-- Date --}}
+
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-white">Date</label>
                         <style>
@@ -95,7 +116,7 @@
                         <input
                             type="date"
                             name="Date"
-                            value=""
+                            value="{{ old('Date') }}"
                             class="form-control"
                             style="background-color: #111827; color: white; border: 1px solid #283141;"
                             required>
@@ -107,14 +128,12 @@
                         }
                     </style>
 
-                    {{-- Time --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-white">Time</label>
                         <input type="time" name="Time" value="{{ old('Time') }}"
                             class="form-control" step="60" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
                     </div>
 
-                    {{-- Submit Button --}}
                     <div class="flex justify-end">
                         <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
                             Submit Appointment
@@ -145,7 +164,7 @@
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.submit(); // Proceed with actual form submission
+                    this.submit();
                 }
             });
         });

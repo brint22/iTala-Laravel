@@ -17,6 +17,38 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h3 class="text-lg font-medium mb-4">All User Accounts</h3>
 
+                    @php
+                    $filteredUsers = $users->filter(function ($user) {
+                        $currentRole = auth()->user()->role;
+
+                        if ($currentRole === 'super_admin') {
+                            return in_array($user->role, ['admin', 'Registered Psychometrician']);
+                        }
+
+                        if ($currentRole === 'admin') {
+                            return $user->role === 'Registered Psychometrician';
+                        }
+
+                        return false;
+                    });
+
+                    $rolePriority = [
+                        'admin' => 1,
+                        'Registered Psychometrician' => 2,
+                    ];
+
+                    $filteredUsers = $filteredUsers->sort(function ($a, $b) use ($rolePriority) {
+                        $roleA = $rolePriority[$a->role] ?? 99;
+                        $roleB = $rolePriority[$b->role] ?? 99;
+
+                        if ($roleA === $roleB) {
+                            return strcmp(strtolower($a->name), strtolower($b->name));
+                        }
+
+                        return $roleA <=> $roleB;
+                    });
+                    @endphp
+
                     <table class="table-auto w-full border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden">
                         <thead class="bg-gray-100 dark:bg-gray-700 text-center">
                             <tr>
@@ -26,22 +58,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @php
-                            $filteredUsers = $users->filter(function ($user) {
-                            $currentRole = auth()->user()->role;
-
-                            if ($currentRole === 'super_admin') {
-                            return in_array($user->role, ['admin', 'Registered Psychometrician']);
-                            }
-
-                            if ($currentRole === 'admin') {
-                            return $user->role === 'Registered Psychometrician';
-                            }
-
-                            return false;
-                            });
-                            @endphp
-
                             @forelse ($filteredUsers as $user)
                             <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
                                 <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">{{ $user->name }}</td>

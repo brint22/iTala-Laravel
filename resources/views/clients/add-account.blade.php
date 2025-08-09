@@ -8,8 +8,8 @@
     </x-slot>
 
     <div class="py-4">
-        <div class="max-w-sm mx-auto px-3">
-            <div class="bg-gray-900 shadow-md rounded-lg p-4 border border-gray-700">
+        <div class="max-w-7xl mx-auto px-3">
+            <div class="bg-gray-900 shadow-md rounded-lg p-4 border border-gray-950" style="border-color: #ffffff78;">
 
                 {{-- Success or Error Messages --}}
                 @if(session('success'))
