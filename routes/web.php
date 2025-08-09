@@ -55,7 +55,7 @@ Route::middleware('auth')->group(function () {
 
     // Appointments
     Route::get('/appointments/create/{client}', [AppointmentController::class, 'create'])->name('appointments.create');
-Route::get('/clients/{client}/addappointment', [AppointmentController::class, 'addappointment'])->name('clients.addappointment');;
+    Route::get('/clients/{client}/addappointment', [ClientController::class, 'addappointment'])->name('clients.addappointment');
     Route::post('/clients/storeappointment', [ClientController::class, 'storeAppointment'])->name('client.storeappointment');
     Route::get('/clients/{client}/appointments', [AppointmentController::class, 'view'])->name('appointments.view');
 
@@ -65,18 +65,18 @@ Route::get('/clients/{client}/addappointment', [AppointmentController::class, 'a
     Route::post('/clients/{client}/session-notes', [SessionNoteController::class, 'store'])->name('clients.sessionnotes.store');
 
 
-    // Show form to set password
-    Route::get('/clients/{client}/addaccount', [ClientController::class, 'addAccount'])->name('clients.addaccount');
+  // Show form to set password
+Route::get('/clients/{client}/addaccount', [ClientController::class, 'addAccount'])->name('clients.addaccount');
 
 
-    // Handle password submission
-    Route::post('/clients/store-account/{id}', [ClientController::class, 'storeAccount'])->name('clients.storeaccount');
+// Handle password submission
+Route::post('/clients/store-account/{id}', [ClientController::class, 'storeAccount'])->name('clients.storeaccount');
 
 
-    // View all clients (this is your existing route for the index page)
-    Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
+// View all clients (this is your existing route for the index page)
+Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
 
-    Route::post('/clients/add-account/{id}', [ClientController::class, 'storeAccount'])->name('clients.storeaccount');
+Route::post('/clients/add-account/{id}', [ClientController::class, 'storeAccount'])->name('clients.storeaccount');
 
 
 

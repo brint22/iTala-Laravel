@@ -100,7 +100,7 @@
                         @if ($hasSessionNotes)
                         <a href="{{ route('clients.viewsessionnotes', ['client' => $client->id]) }}"
                             class="px-3 py-1 text-white text-sm rounded shadow w-max"
-                            style="padding: 1em; background-color: #c09fff42;">
+                            style="padding: 1em; background-color: #c09fff42; margin-top: 0;">
                             View Session Notes
                         </a>
                         @elseif ($hasAppointments)
@@ -110,7 +110,7 @@
                         @if ($client->appointments->count() > 0)
                         <a href="{{ route('clients.addsessionnote', ['client' => $client->id]) }}"
                             class="px-3 py-1 text-white text-sm rounded shadow w-max"
-                            style="padding: 1em; background-color: #d6e0ff42;">
+                            style="padding: 1em; background-color: #d6e0ff42; margin-top: 0;">
                             Add Session Note
                         </a>
                         @endif
@@ -118,7 +118,7 @@
                         @if ($client->appointments->count() > 0)
                         <button @click.stop="showAppointmentsFor = {{ $client->id }}"
                             class="px-3 py-1 text-white text-sm rounded shadow w-max"
-                            style="padding: 1em; background-color: #6a85ab4d;">
+                            style="padding: 1em; background-color: #6a85ab4d; margin-top: 0;">
                             View Appointments
                         </button>
                         @else
@@ -127,14 +127,14 @@
 
                         <a href="{{ route('clients.addappointment', ['client' => $client->id]) }}"
                             class="px-3 py-1 text-white text-sm rounded shadow w-max"
-                            style="padding: 1em; background-color: #ffffe042;">
+                            style="padding: 1em; background-color: #ffffe042; margin-top: 0;">
                             Add Appointment
                         </a>
 
                         @if(is_null($client->Password))
                         <a href="{{ route('clients.addaccount', ['client' => $client->id]) }}"
                             class="px-3 py-1 text-white text-sm rounded shadow w-max"
-                            style="padding: 1em; background-color: #c4c4ff52;">
+                            style="padding: 1em; background-color: #c4c4ff52; margin-top: 0;">
                             Add Account
                         </a>
                         @endif

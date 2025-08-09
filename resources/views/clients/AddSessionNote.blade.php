@@ -3,9 +3,15 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-white leading-tight">
-            Add Session Note for {{ $client->first_name }} {{ $client->last_name }}
-        </h2>
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-white leading-tight">
+                Add A Session Note for {{ $client->first_name }} {{ $client->last_name }}
+            </h2>
+            <a href="{{ url('/clients') }}"
+                class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded">
+                Return
+            </a>
+        </div>
     </x-slot>
 
     <style>
@@ -107,7 +113,7 @@
                         </div>
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-white">Assessment</label>
-                            <textarea id="assessment" class="form-control bg-gray-900 text-white border border-gray-700" rows="2" style="background-color: #111827; width: 100%;"></textarea>
+                            <textarea id="assessment" class="form-control bga-gray-900 text-white border border-gray-700" rows="2" style="background-color: #111827; width: 100%;"></textarea>
                         </div>
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-white">Plan</label>

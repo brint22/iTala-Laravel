@@ -1,8 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-white leading-tight">
-            Session Notes for {{ $client->first_name }} {{ $client->last_name }}
-        </h2>
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-white leading-tight">
+                Session Notes for {{ $client->first_name }} {{ $client->last_name }}
+            </h2>
+            <a href="{{ url('/clients') }}"
+                class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded">
+                Return
+            </a>
+        </div>
     </x-slot>
 
     <style>
@@ -88,7 +94,7 @@
                     </template>
                 </p>
 
-                <p class="text-white text-sm mb-1"><strong>Type:</strong>
+                <p class="text-white text-sm mb-1"><strong>Format Type:</strong>
                     <span x-text="selectedNote.format_type"></span>
                 </p>
 
