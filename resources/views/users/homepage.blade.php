@@ -26,7 +26,7 @@
 
                             <div class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-6 rounded-lg shadow-md mb-10">
                                 <h3 class="text-2xl font-bold">{{ $greeting }}, {{ $firstName }}!</h3>
-                                <p class="mt-2 text-sm text-white/80">Manage your users, view reports, and perform assessments.</p>
+                                <p class="mt-2 text-sm text-white/80">Manage your clients, appointments, and session notes.</p>
                             </div>
 
                             <!-- Cards Row -->
@@ -37,7 +37,7 @@
                                     style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px;">
                                     <h4 class="text-lg font-semibold text-white mb-2">Add Client Information</h4>
                                     <p class="text-sm text-white/70 mb-4" style="color: lightgray;">
-                                        Register a new user into the system.
+                                        Register a new client into the system.
                                     </p>
                                     <form action="{{ url('/clients/addclient') }}" method="GET">
                                         <button type="submit"
@@ -53,16 +53,16 @@
                                     style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px;">
                                     <h4 class="text-lg font-semibold text-white mb-2">View Clients</h4>
                                     <p class="text-sm text-white/70 mb-4" style="color: lightgray;">
-                                        Browse the list of allclients.
+                                        Browse the list of all clients.
                                     </p>
                                     <a href="{{ route('clients.index') }}""
-                                        class="block w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition"
+                                        class=" block w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition"
                                         style="color: lightyellow; font-weight: bold; text-align: left;">
                                         View Clients
                                     </a>
                                 </div>
 
-                                <!-- Card 3: View Reports -->
+                                <!-- Card 3: View Reports
                                 <div class="w-full lg:w-1/4 p-4 shadow-xl transition-all hover:-translate-y-1 hover:shadow-2xl backdrop-blur-md"
                                     style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px;">
                                     <h4 class="text-lg font-semibold text-white mb-2">View Reports</h4>
@@ -77,7 +77,7 @@
                                 </div>
 
                                 <!-- Card 4: Settings -->
-                                <div class="w-full lg:w-1/4 p-4 shadow-xl transition-all hover:-translate-y-1 hover:shadow-2xl backdrop-blur-md"
+                                <!-- <div class="w-full lg:w-1/4 p-4 shadow-xl transition-all hover:-translate-y-1 hover:shadow-2xl backdrop-blur-md"
                                     style="background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px;">
                                     <h4 class="text-lg font-semibold text-white mb-2">Settings</h4>
                                     <p class="text-sm text-white/70 mb-4" style="color: lightgray;">
@@ -88,7 +88,7 @@
                                         style="color: lightyellow; font-weight: bold; text-align: left;">
                                         Account Settings
                                     </a>
-                                </div>
+                                </div> -->
 
                             </div>
         </div>

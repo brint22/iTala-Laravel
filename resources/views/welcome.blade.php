@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>iTala</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+
 </head>
 
 <body class="antialiased bg-white dark:bg-gray-900">
@@ -28,7 +28,13 @@
 
         <p class="mt-6 text-lg text-gray-600 dark:text-gray-400" style="font-size: 1.5rem;">
             <!--Your mental health guided by professionals made accessible in Dipolog.*/ -->
-            Guiding every step to <b>better mental health</b> in <b>Dipolog</b>.
+            Guiding every step to <b style="
+    color: white;
+">better mental health</b> in <b style="
+    color: white;
+">Dipolog</b>.
+        </p>
+    </div>
     </div>
 </body>
 

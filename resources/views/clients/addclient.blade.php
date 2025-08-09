@@ -1,8 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Add New Client
-        </h2>
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                Add New Client
+            </h2>
+            <a href="{{ url('/homepage') }}"
+                class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded">
+                Return
+            </a>
+        </div>
     </x-slot>
 
     <div class="py-6">
@@ -46,31 +52,44 @@
                     {{-- First Name --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">First Name</label>
-                        <input type="text" name="first_name" value="{{ old('first_name') }}" class="mt-1 block w-full rounded" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
+                        <input type="text" name="first_name" value="{{ old('first_name') }}"
+                            class="mt-1 block w-full rounded"
+                            style="background-color: #111827; color: white; border: 1px solid #283141;"
+                            required>
                     </div>
 
                     {{-- Middle Name --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Middle Name</label>
-                        <input type="text" name="middle_name" value="{{ old('middle_name') }}" class="mt-1 block w-full rounded" style="background-color: #111827; color: white; border: 1px solid #283141;">
+                        <input type="text" name="middle_name" value="{{ old('middle_name') }}"
+                            class="mt-1 block w-full rounded"
+                            style="background-color: #111827; color: white; border: 1px solid #283141;">
                     </div>
 
                     {{-- Last Name --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Last Name</label>
-                        <input type="text" name="last_name" value="{{ old('last_name') }}" class="mt-1 block w-full rounded" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
+                        <input type="text" name="last_name" value="{{ old('last_name') }}"
+                            class="mt-1 block w-full rounded"
+                            style="background-color: #111827; color: white; border: 1px solid #283141;"
+                            required>
                     </div>
 
                     {{-- Name Extension --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name Extension</label>
-                        <input type="text" name="name_extension" value="{{ old('name_extension') }}" class="mt-1 block w-full rounded" style="background-color: #111827; color: white; border: 1px solid #283141;">
+                        <input type="text" name="name_extension" value="{{ old('name_extension') }}"
+                            class="mt-1 block w-full rounded"
+                            style="background-color: #111827; color: white; border: 1px solid #283141;">
                     </div>
 
                     {{-- Email --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
-                        <input type="email" name="email" value="{{ old('email') }}" class="mt-1 block w-full rounded" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
+                        <input type="email" name="email" value="{{ old('email') }}"
+                            class="mt-1 block w-full rounded"
+                            style="background-color: #111827; color: white; border: 1px solid #283141;"
+                            required>
                     </div>
 
                     <style>
@@ -78,17 +97,23 @@
                             filter: invert(1);
                         }
                     </style>
-                    
+
                     {{-- Birthdate --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Birthdate</label>
-                        <input type="date" name="birthdate" value="{{ old('birthdate') }}" class="mt-1 block w-full rounded" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
+                        <input type="date" name="birthdate" value="{{ old('birthdate') }}"
+                            class="mt-1 block w-full rounded"
+                            style="background-color: #111827; color: white; border: 1px solid #283141;"
+                            required>
                     </div>
 
                     {{-- Gender --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Gender</label>
-                        <select name="gender" class="mt-1 block w-full rounded" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
+                        <select name="gender"
+                            class="mt-1 block w-full rounded"
+                            style="background-color: #111827; color: white; border: 1px solid #283141;"
+                            required>
                             <option value="">Select Gender</option>
                             <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
                             <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
@@ -100,7 +125,10 @@
                     {{-- Civil Status --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Civil Status</label>
-                        <select name="civil_status" class="mt-1 block w-full rounded" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
+                        <select name="civil_status"
+                            class="mt-1 block w-full rounded"
+                            style="background-color: #111827; color: white; border: 1px solid #283141;"
+                            required>
                             <option value="">Select Civil Status</option>
                             <option value="Single" {{ old('civil_status') == 'Single' ? 'selected' : '' }}>Single</option>
                             <option value="Married" {{ old('civil_status') == 'Married' ? 'selected' : '' }}>Married</option>
@@ -114,16 +142,23 @@
                     {{-- Address --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Address</label>
-                        <input type="text" name="address" value="{{ old('address') }}" class="mt-1 block w-full rounded" style="background-color: #111827; color: white; border: 1px solid #283141;" required>
+                        <input type="text" name="address" value="{{ old('address') }}"
+                            class="mt-1 block w-full rounded"
+                            style="background-color: #111827; color: white; border: 1px solid #283141;"
+                            required>
                     </div>
 
                     {{-- Contact Number --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Contact Number</label>
                         <div class="flex">
-                            <span class="inline-flex items-center px-3 text-white text-sm rounded-l border border-r-0" style="background-color: #111827; border-color: #283141;">+63</span>
-                            <input type="text" name="contact_number" value="{{ old('contact_number') }}" maxlength="10" pattern="[0-9]{10}"
-                                class="mt-1 block w-full rounded-r" style="background-color: #111827; color: white; border: 1px solid #283141;" placeholder="9123456789" required>
+                            <span class="inline-flex items-center px-3 text-white text-sm rounded-l border border-r-0"
+                                style="background-color: #111827; border-color: #283141;">+63</span>
+                            <input type="text" name="contact_number" value="{{ old('contact_number') }}"
+                                maxlength="10" pattern="[0-9]{10}"
+                                class="mt-1 block w-full rounded-r"
+                                style="background-color: #111827; color: white; border: 1px solid #283141;"
+                                placeholder="9123456789" required>
                         </div>
                         <small class="text-gray-400">Enter 10-digit mobile number after +63</small>
                     </div>
@@ -131,30 +166,36 @@
                     {{-- Emergency Contact Name --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Emergency Contact Name</label>
-                        <input type="text" name="emergency_contact_name" value="{{ old('emergency_contact_name') }}" class="mt-1 block w-full rounded" style="background-color: #111827; color: white; border: 1px solid #283141;">
+                        <input type="text" name="emergency_contact_name" value="{{ old('emergency_contact_name') }}"
+                            class="mt-1 block w-full rounded"
+                            style="background-color: #111827; color: white; border: 1px solid #283141;">
                     </div>
 
                     {{-- Emergency Contact Number --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Emergency Contact Number</label>
                         <div class="flex">
-                            <span class="inline-flex items-center px-3 text-white text-sm rounded-l border border-r-0" style="background-color: #111827; border-color: #283141;">+63</span>
-                            <input type="text" name="emergency_contact_number" value="{{ old('emergency_contact_number') }}" maxlength="10" pattern="[0-9]{10}"
-                                class="mt-1 block w-full rounded-r" style="background-color: #111827; color: white; border: 1px solid #283141;" placeholder="9123456789" required>
+                            <span class="inline-flex items-center px-3 text-white text-sm rounded-l border border-r-0"
+                                style="background-color: #111827; border-color: #283141;">+63</span>
+                            <input type="text" name="emergency_contact_number" value="{{ old('emergency_contact_number') }}"
+                                maxlength="10" pattern="[0-9]{10}"
+                                class="mt-1 block w-full rounded-r"
+                                style="background-color: #111827; color: white; border: 1px solid #283141;"
+                                placeholder="9123456789" required>
                         </div>
                         <small class="text-gray-400">Enter 10-digit mobile number after +63</small>
                     </div>
 
-            </div>
+                    {{-- Submit Button --}}
+                    <div class="flex justify-start mt-6">
+                        <button type="submit"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
+                            Submit
+                        </button>
+                    </div>
 
-            {{-- Submit --}}
-            <div class="flex justify-end">
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
-                    Submit
-                </button>
+                </form>
             </div>
-            </form>
         </div>
-    </div>
     </div>
 </x-app-layout>

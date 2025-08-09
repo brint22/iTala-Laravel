@@ -19,20 +19,18 @@
                         icon: 'success',
                         title: 'Success!',
                         text: "{{ session('success') }}",
-                        showConfirmButton: false,
-                        timer: 2500,
-                        timerProgressBar: true,
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK',
                         background: '#1f2937', // Tailwind's gray-800
                         color: '#f9fafb', // Tailwind's gray-50
                         customClass: {
-                            popup: 'rounded-xl shadow-lg'
+                            popup: 'rounded-xl shadow-lg',
+                            confirmButton: 'bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg'
                         }
                     });
                 });
             </script>
             @endif
-
-
 
             {{-- Validation errors --}}
             @if ($errors->any())
@@ -44,9 +42,6 @@
                 </ul>
             </div>
             @endif
-
-
-
 
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
                 <form method="POST" action="{{ route('users.store') }}">
@@ -162,7 +157,7 @@
 </x-app-layout>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const form = document.querySelector('form');
         const password = document.getElementById('password');
         const confirmPassword = document.getElementById('confirm_password');
@@ -191,7 +186,7 @@
         password.addEventListener('input', validatePasswords);
         confirmPassword.addEventListener('input', validatePasswords);
 
-        form.addEventListener('submit', function (e) {
+        form.addEventListener('submit', function(e) {
             if (password.value !== confirmPassword.value) {
                 e.preventDefault();
             }
