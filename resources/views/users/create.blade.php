@@ -19,7 +19,7 @@
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
             {{-- ✅ SweetAlert2 Success Popup --}}
-            @if (session('success'))
+            @if(session('success'))
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     Swal.fire({
@@ -28,11 +28,29 @@
                         text: "{{ session('success') }}",
                         showConfirmButton: true,
                         confirmButtonText: 'OK',
-                        background: '#1f2937', // Tailwind's gray-800
-                        color: '#f9fafb', // Tailwind's gray-50
+                        background: '#1f2937', // gray-800
+                        color: '#f9fafb', // gray-50
                         customClass: {
                             popup: 'rounded-xl shadow-lg',
                             confirmButton: 'bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg'
+                        }
+                    });
+                });
+            </script>
+            @elseif(session('error'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops!',
+                        text: "{{ session('error') }}",
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK',
+                        background: '#1f2937', // gray-800
+                        color: '#f9fafb', // gray-50
+                        customClass: {
+                            popup: 'rounded-xl shadow-lg',
+                            confirmButton: 'bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg'
                         }
                     });
                 });
@@ -162,6 +180,12 @@
         </div>
     </div>
 </x-app-layout>
+
+<style>
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+    }
+</style>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
