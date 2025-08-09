@@ -4,8 +4,8 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 View Accounts
             </h2>
-            <a href="{{ url('/homepage') }}" 
-               class="inline-block bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg transition">
+            <a href="{{ url('/dashboard') }}"
+                class="inline-block bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg transition">
                 Return
             </a>
         </div>
@@ -27,35 +27,35 @@
                         </thead>
                         <tbody>
                             @php
-                                $filteredUsers = $users->filter(function ($user) {
-                                    $currentRole = auth()->user()->role;
+                            $filteredUsers = $users->filter(function ($user) {
+                            $currentRole = auth()->user()->role;
 
-                                    if ($currentRole === 'super_admin') {
-                                        return in_array($user->role, ['admin', 'Registered Psychometrician']);
-                                    }
+                            if ($currentRole === 'super_admin') {
+                            return in_array($user->role, ['admin', 'Registered Psychometrician']);
+                            }
 
-                                    if ($currentRole === 'admin') {
-                                        return $user->role === 'Registered Psychometrician';
-                                    }
+                            if ($currentRole === 'admin') {
+                            return $user->role === 'Registered Psychometrician';
+                            }
 
-                                    return false;
-                                });
+                            return false;
+                            });
                             @endphp
 
                             @forelse ($filteredUsers as $user)
-                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">{{ $user->name }}</td>
-                                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">{{ $user->email }}</td>
-                                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
-                                        {{ ucfirst($user->role) }}
-                                    </td>
-                                </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                                <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">{{ $user->name }}</td>
+                                <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">{{ $user->email }}</td>
+                                <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+                                    {{ ucfirst($user->role) }}
+                                </td>
+                            </tr>
                             @empty
-                                <tr>
-                                    <td colspan="3" class="text-center text-sm text-gray-500 dark:text-gray-400 py-4">
-                                        No user accounts found.
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td colspan="3" class="text-center text-sm text-gray-500 dark:text-gray-400 py-4">
+                                    No user accounts found.
+                                </td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>
