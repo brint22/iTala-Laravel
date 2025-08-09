@@ -1,8 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            View Accounts
-        </h2>
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                View Accounts
+            </h2>
+            <a href="{{ url('/homepage') }}" 
+               class="inline-block bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg transition">
+                Return
+            </a>
+        </div>
     </x-slot>
 
     <div class="py-6">
@@ -11,12 +17,12 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h3 class="text-lg font-medium mb-4">All User Accounts</h3>
 
-                    <table class="table-auto w-full">
-                        <thead>
+                    <table class="table-auto w-full border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden">
+                        <thead class="bg-gray-100 dark:bg-gray-700 text-center">
                             <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
+                                <th class="px-4 py-2 border-b border-gray-300 dark:border-gray-700 text-center">Name</th>
+                                <th class="px-4 py-2 border-b border-gray-300 dark:border-gray-700 text-center">Email</th>
+                                <th class="px-4 py-2 border-b border-gray-300 dark:border-gray-700 text-center">Role</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,10 +43,12 @@
                             @endphp
 
                             @forelse ($filteredUsers as $user)
-                                <tr>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->role }}</td>
+                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">{{ $user->name }}</td>
+                                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">{{ $user->email }}</td>
+                                    <td class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+                                        {{ ucfirst($user->role) }}
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>

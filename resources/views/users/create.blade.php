@@ -1,9 +1,16 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Create New User
-        </h2>
+        <div class="flex justify-between items-center">
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                Register New User
+            </h2>
+            <a href="{{ url('/dashboard') }}"
+                class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded">
+                Return
+            </a>
+        </div>
     </x-slot>
+
 
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -147,7 +154,7 @@
                     {{-- Submit --}}
                     <button id="submitBtn" type="submit" class="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
                         style="border: 2px solid #5b626e; border-radius: 4pt;" disabled>
-                        Create User
+                        Submit
                     </button>
 
                 </form>
