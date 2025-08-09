@@ -1,24 +1,38 @@
-*.log
-.DS_Store
+# Environment and config files
 .env
 .env.backup
 .env.production
-.phpactor.json
+/auth.json
+
+# Logs and caches
+*.log
 .phpunit.result.cache
-/.fleet
+.phpunit.cache
+
+# IDE/editor folders
 /.idea
-/.nova
-/.phpunit.cache
 /.vscode
 /.zed
-/auth.json
+/.fleet
+/.nova
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Node modules and build files
 /node_modules
 /public/build
 /public/hot
 /public/storage
+
+# Storage keys and cache
 /storage/*.key
 /storage/pail
+
+# Composer vendor folder
 /vendor
-Homestead.json
-Homestead.yaml
-Thumbs.db
+
+# Laravel Homestead config files (optional if using Homestead)
+/Homestead.json
+/Homestead.yaml
